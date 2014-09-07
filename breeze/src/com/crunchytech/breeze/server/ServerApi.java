@@ -3,7 +3,7 @@ import static com.crunchytech.breeze.Constants.TAG;
 import android.util.Log;
 
 public class ServerApi {
-	static String serverURL = "http://107.170.245.92:5000/"
+	static String serverURL = "http://107.170.245.92:5000/";
 	static String register = "register";
 	static String getnearby = "getnearby";
 	
@@ -13,6 +13,6 @@ public class ServerApi {
 	}
 	
 	public static void sendRegistration(String name, String id, String purl){
-		
+		Log.i(TAG, "Send Registration to the server");
 	}
 }
