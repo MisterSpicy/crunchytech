@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.crunchytech.breeze.server.ServerApi;
 import com.crunchytech.breeze.server.UserInfo;
 
@@ -19,17 +20,19 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
 	private LayoutInflater mInflater;
 	private FeedFragment fragment;
 	private Activity mActivity;
+	private com.android.volley.toolbox.ImageLoader volleyImageLoader;
 	
 	public FeedArrayAdapter(Activity activity, Context context, int vID) {
 		super(context, vID);
 		mActivity = activity;
+		volleyImageLoader = VolleySingleton.getInstance().getImageLoader();
 		fragment = (FeedFragment) activity.getFragmentManager().findFragmentById(R.id.content_frame);
 		mInflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
 	static class ViewHolder {
 		
-	    ImageView picture;
+	    NetworkImageView picture;
 	    TextView name;
 	    TextView title;
 	    ImageView hide;
@@ -37,7 +40,7 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
 	    Button coffeeBtn;
 	    
 	    ViewHolder(View row) {
-	    	this.picture = (ImageView) row.findViewById(R.id.feed_picture);
+	    	this.picture = (NetworkImageView) row.findViewById(R.id.feed_picture);
 	    	this.name = (TextView) row.findViewById(R.id.feed_name);
 	    	this.title = (TextView) row.findViewById(R.id.feed_title);
 		    this.hide = (ImageView) row.findViewById(R.id.feed_hide);
@@ -64,7 +67,9 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
         
         ServerApi.nearbyUsers.get(position);
 
-        holder.picture.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.missing_linkedin));
+        holder.picture.setImageUrl(user.picurl, volleyImageLoader);
+        holder.picture.setDefaultImageResId(R.drawable.missing_linkedin);
+        holder.picture.setErrorImageResId(R.drawable.missing_linkedin);
         holder.name.setText(user.name);
         holder.title.setText(user.headline);
         holder.hide.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.no_icon));
