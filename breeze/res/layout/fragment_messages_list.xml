@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/lstMessages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightblue"
+        android:divider="@color/blue"
+		android:dividerHeight="1dp"
+        android:listSelector="@drawable/activated_background"
+		android:clickable="true" >
+    </ListView>
