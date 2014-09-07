@@ -32,6 +32,7 @@ public class MessagesFragment extends ListFragment {
 
 		Bundle args = getArguments();
 		
+		updateList();
 	}
 
 	 @Override
