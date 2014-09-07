@@ -43,6 +43,8 @@ public class MessagesActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main_activity);
+		
+		ServerApi.updateNearbyUsers();
 
 		if (savedInstanceState != null) {
 			int selectedTabIndex = savedInstanceState.getInt("STATE_SELECTED_NAVIGATION_ITEM");
