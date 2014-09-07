@@ -26,12 +26,21 @@ public class LinkedInProfile {
 	
 	private String TAG = "BreezeeLinkedIn";
 	private class Profile {
+		String id = "";
 		String firstName = "";
 		String lastName = "";
 		String headline = "";
 		String accessToken = "";
 		String profileUrl = "";
 		String photoUrl = "";
+		
+		public void setId(String id) {
+			this.id = id;
+		}
+		
+		public String getId() { 
+			return id;
+		}
 		
 		public String getProfileUrl() {
 			return profileUrl;
@@ -175,7 +184,7 @@ public class LinkedInProfile {
 				            profile.setHeadline(response.getString("headline"));
 				            profile.setProfileUrl(response.getString("public-profile-url"));
 				            profile.setPhotoUrl(response.getString("picture-url"));
-				            
+				            profile.setId(response.getString("id"));
 				            // QL: notify somebody about this.
 				            
 						} catch (JSONException e) {
