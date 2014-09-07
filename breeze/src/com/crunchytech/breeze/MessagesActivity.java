@@ -19,13 +19,14 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+import com.crunchytech.breeze.server.ServerApi;
 
 public class MessagesActivity extends FragmentActivity {
 	private final String TAG = "Breezee";
@@ -83,6 +84,8 @@ public class MessagesActivity extends FragmentActivity {
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(intent);
 		
+		
+		ServerApi.updateNearbyUsers();
 	}
 
 	@Override
@@ -280,20 +283,5 @@ public class MessagesActivity extends FragmentActivity {
 		// update selected item and title, then close the drawer
 		mDrawerListView.setItemChecked(position, true);
 		getActionBar().setTitle(getResources().getStringArray(R.array.drawer_itemz)[position]);
-	}
-	
-	public void onFeedProfileClick(View v) {
-		FeedFragment fragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-		fragment.openProfile();
-	}
-	
-	public void onFeedHideClick(View v) {
-		FeedFragment fragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-		fragment.hideProfile();
-	}
-	
-	public void onFeedConnectClick(View v) {
-		FeedFragment fragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-		fragment.connectProfile();
 	}
 }

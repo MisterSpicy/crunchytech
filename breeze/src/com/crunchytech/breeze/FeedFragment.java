@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class FeedFragment extends ListFragment {
 
@@ -22,7 +23,7 @@ public class FeedFragment extends ListFragment {
 	 public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mFeedAdapter = new FeedArrayAdapter(Breeze.getAppContext(), -1);
+		mFeedAdapter = new FeedArrayAdapter(getActivity(), Breeze.getAppContext(), -1);
 	  	setListAdapter(mFeedAdapter);
 	 }
 	
@@ -36,6 +37,7 @@ public class FeedFragment extends ListFragment {
 	 @Override
 	 public void onListItemClick(ListView lv, View v, int position, long id) {
 			String mID = lv.getAdapter().getItem(position).toString();
+			Toast.makeText(getActivity(), mID, Toast.LENGTH_LONG).show();
 	 }
 	
 
@@ -87,16 +89,18 @@ public class FeedFragment extends ListFragment {
 		return msgs;
 	}
 	
-	public void openProfile() {
+	public void openProfile(String id) {
 		
 	}
 	
-	public void hideProfile() {
+	public void hideProfile(String id) {
+		mFeedAdapter.remove(id);
 		
+		updateList();
 	}
 	
-	public void connectProfile() {
-		
+	public void connectProfile(String id) {
+
 	}
 }
 
