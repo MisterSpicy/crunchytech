@@ -51,7 +51,7 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
         holder.picture.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.yes_icon));
         holder.name.setText("Michelle");
         holder.title.setText("Breezemaster");
-        holder.hide.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.yes_icon));
+        holder.hide.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.no_icon));
         holder.connect.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.yes_icon));
 
         return convertView;
