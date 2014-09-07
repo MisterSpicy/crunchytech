@@ -95,6 +95,7 @@ public class MessagesActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		ServerApi.updateNearbyUsers();
 	}
 
 	@Override

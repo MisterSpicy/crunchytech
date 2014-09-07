@@ -111,7 +111,7 @@ public class ServerApi {
 	private static ArrayList<UserInfo> getNearby() {
 		Log.i(TAG, "Get All Nearby Users");
 		String requestUrl = serverURL + getnearby;
-		ArrayList<UserInfo> userinfos = new ArrayList<UserInfo>();
+//		ArrayList<UserInfo> userinfos = new ArrayList<UserInfo>();
 		
 		// prepare the Request
 		JsonObjectRequest getRequest = new JsonObjectRequest(Method.GET,
@@ -119,7 +119,7 @@ public class ServerApi {
 					@Override
 					public void onResponse(JSONObject response) {
 						// display response
-						Log.d(TAG, response.toString());
+						Log.d(TAG, "GET NEARBY RESPONSE: " + response);
 						nearbyUsers = parseRequest(response);
 					}
 				}, new Response.ErrorListener() {

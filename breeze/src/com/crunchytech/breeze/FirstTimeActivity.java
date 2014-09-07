@@ -1,5 +1,7 @@
 package com.crunchytech.breeze;
 
+import com.crunchytech.breeze.server.ServerApi;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,11 +30,13 @@ public class FirstTimeActivity extends Activity {
     		    startActivityForResult(intent, 0);
             }
         });
+		ServerApi.updateNearbyUsers();
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
+		ServerApi.updateNearbyUsers();
 	}
 	
 	@Override
