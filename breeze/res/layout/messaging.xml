@@ -36,15 +36,15 @@
             android:layout_height="48dp"
             android:background="@android:color/white"
             android:paddingLeft="10dp"
+            android:paddingTop="5dp"
             android:layout_alignParentBottom="true">
 
 
         <EditText
-                android:layout_marginBottom="-4dp"
                 android:id="@+id/txtTextBody"
                 android:layout_width="match_parent"                
                 android:layout_height="match_parent"
-                android:hint="Message..."
+                android:hint="Say hello..."
                 android:textSize="14sp"
                 android:textColor="@color/gray"
                 android:layout_marginRight="10dp"
@@ -53,13 +53,15 @@
                 android:layout_alignBottom="@+id/btnSend"
                 android:layout_toLeftOf="@+id/btnSend"/>
 
-        <Button
+        <ImageButton
                 android:id="@+id/btnSend"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
                 android:layout_alignParentRight="true"
                 android:layout_margin="4dp"
-                android:background="@drawable/send_inactive" />
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:background="@android:color/transparent"
+			    android:src="@drawable/send_inactive"                
+                />
     </RelativeLayout>
 
 

@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
 
     private EditText mTxtTextBody;
 
-    private Button mBtnSend;
+    private ImageButton mBtnSend;
 
     private ListView mMessagesList;
 
@@ -53,7 +54,7 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
         
         mMessagesList = (ListView) findViewById(R.id.lstMessages);
         mTxtTextBody = (EditText) findViewById(R.id.txtTextBody);
-        mBtnSend = (Button) findViewById(R.id.btnSend);
+        mBtnSend = (ImageButton) findViewById(R.id.btnSend);
 
         mMessageAdapter = new MessageAdapter(this);
         mMessagesList.setAdapter(mMessageAdapter);
