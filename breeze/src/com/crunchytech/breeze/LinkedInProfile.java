@@ -35,50 +35,50 @@ public class LinkedInProfile {
 		String photoUrl = "";
 		
 		public void setId(String id) {
-			this.id = id;
+			profile.id = id;
 		}
 		
 		public String getId() { 
-			return id;
+			return profile.id;
 		}
 		
 		public String getProfileUrl() {
-			return profileUrl;
+			return profile.profileUrl;
 		}
 
 		public void setProfileUrl(String profileUrl) {
-			this.profileUrl = profileUrl;
+			profile.profileUrl = profileUrl;
 		}
 		
 		public void setPhotoUrl(String photoUrl) {
-			this.photoUrl = photoUrl;
+			profile.photoUrl = photoUrl;
 		}
 		
 		public String getPhotoUrl() {
-			return photoUrl;
+			return profile.photoUrl;
 		}
 
 		public void setFirstName(String first) {
-			firstName = first;
+			profile.firstName = first;
 		}
 		
 		public void setLastName(String last) {
-			lastName = last;
+			profile.lastName = last;
 		}
 		
 		public void setHeadline(String headline_) {
-			headline = headline_;
+			profile.headline = headline_;
 		}
 		public String getFirstName() {
-			return firstName;
+			return profile.firstName;
 		}
 
 		public String getLastName() {
-			return lastName;
+			return profile.lastName;
 		}
 
 		public String getHeadline() {
-			return headline;
+			return profile.headline;
 		}
 	}
 	
@@ -126,19 +126,6 @@ public class LinkedInProfile {
 			getProfileInfo();			
 		}
 	}
-	
-	public String getFirstName() {
-		
-		return profile.firstName;
-	}
-	public String getLastName() {
-		
-		return profile.lastName;
-	}
-	
-	public String getHeadline() {
-		return profile.headline;
-	}
 		
 	public String getAccessToken() {
 		if (profile.accessToken != "") {
@@ -182,8 +169,8 @@ public class LinkedInProfile {
 							profile.setFirstName(response.getString("firstName"));
 				            profile.setLastName(response.getString("lastName"));
 				            profile.setHeadline(response.getString("headline"));
-				            profile.setProfileUrl(response.getString("public-profile-url"));
-				            profile.setPhotoUrl(response.getString("picture-url"));
+				            profile.setProfileUrl(response.getString("publicProfileUrl"));
+				            profile.setPhotoUrl(response.getString("pictureUrl"));
 				            profile.setId(response.getString("id"));
 				            // QL: notify somebody about this.
 				            
