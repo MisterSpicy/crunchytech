@@ -18,7 +18,7 @@ public class BreezeBroadcastReceiver extends BroadcastReceiver {
 	    try {
 	      String action = intent.getAction();
 	      if (action == "LINKED_IN_AUTH_SUCCESS") {
-	    	  MessagesActivity.isLinkedInAuthenticated = true;
+	    	  //MessagesActivity.isLinkedInAuthenticated = true;
 	      }
 //	      String channel = intent.getExtras().getString("com.parse.Channel");
 //	      JSONObject json = new JSONObject(intent.getExtras().getString("com.parse.Data"));

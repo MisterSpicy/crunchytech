@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
@@ -27,11 +28,9 @@ public class LinkedInLogin extends Activity {
 	private static String linkedInCode = "";
 	private static String linkedInToken = "";
     RequestQueue queue;
-	public LinkedInProfile myProfile;
 	
 	public LinkedInLogin() {
 		queue = VolleySingleton.getInstance().getRequestQueue();
-		myProfile = MessagesActivity.myProfile;
 	}
 	
 	@Override
@@ -57,22 +56,32 @@ public class LinkedInLogin extends Activity {
 				  Log.d(TAG, "Code: " + responseCode);
 				  if (responseCode != null) {
 					  linkedInCode = responseCode;
-					  String accessURL = myProfile.getAuthTokenURL(linkedInCode);
+					  String accessURL = Breeze.getProfile().getAuthTokenURL(linkedInCode);
 					  Log.d(TAG, "accessUrl: " + accessURL);
 					  JsonObjectRequest jsObjRequest = new JsonObjectRequest
-						        (Request.Method.POST, myProfile.getAuthTokenURL(linkedInCode), 
+						        (Request.Method.POST, Breeze.getProfile().getAuthTokenURL(linkedInCode), 
 						        		 null, new Response.Listener<JSONObject>() {
 
 						    @Override
 						    public void onResponse(JSONObject response) {
 						    	try {
 									linkedInToken = response.getString("access_token");
-									myProfile.setAccessToken(linkedInToken);
+									Breeze.getProfile().loginDidSucceed(linkedInToken);
 								} catch (JSONException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								Log.d(TAG, "LinkedInToken: " + linkedInToken);
+								
+							    Intent intent = new Intent();
+
+								if (getParent() == null) {
+								    setResult(Activity.RESULT_OK);
+								} else {
+								    getParent().setResult(Activity.RESULT_OK);
+								}
+								finish();
+
 						    }
 						    
 						}, new Response.ErrorListener() {
@@ -85,8 +94,7 @@ public class LinkedInLogin extends Activity {
 						});
 
 					  queue.add(jsObjRequest);
-					  finish();
-					  
+					  					  
 				  }
 				  return true;
 				} catch (MalformedURLException e) {
@@ -100,6 +108,6 @@ public class LinkedInLogin extends Activity {
 			
 		});
 		setContentView(webview);
-		webview.loadUrl(myProfile.getLinkedInAuthURL());
+		webview.loadUrl(Breeze.getProfile().getLinkedInAuthURL());
 	}
 }

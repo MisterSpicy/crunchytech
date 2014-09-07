@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
 	android:background="@drawable/activated_background"
 	android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:padding="10dp" >
+    android:padding="16dp" >
  
     <ImageView
         android:id="@+id/drawerItemIcon"

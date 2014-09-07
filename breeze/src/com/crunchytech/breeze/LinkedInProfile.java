@@ -1,19 +1,28 @@
 package com.crunchytech.breeze;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import org.json.JSONObject;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class LinkedInProfile {
+	
+	static LinkedInProfile s_linkedInService;
+	public static LinkedInProfile getInstance() {
+		if(s_linkedInService == null) { 
+			s_linkedInService = new LinkedInProfile();
+		}
+		return s_linkedInService;
+	}
+	
 	private String TAG = "BreezeeLinkedIn";
 	private class Profile {
 		String firstName = "";
@@ -23,10 +32,14 @@ public class LinkedInProfile {
 	}
 	
 	public Profile profile;
+	private RequestQueue queue;
 	
 	//Constructor
 	public LinkedInProfile () {
 		profile = new Profile();
+		queue = VolleySingleton.getInstance().getRequestQueue();		
+		
+		loadProfile();
 	}
 	
 	public void setFirstName(String first) {
@@ -41,8 +54,30 @@ public class LinkedInProfile {
 		profile.headline = headline;
 	}
 	
-	public void setAccessToken(String token) {
+	public boolean isLogin() {
+		return profile.accessToken != null;
+	}
+	
+	public void loginDidSucceed(String token) {
 		profile.accessToken = token;
+		
+		SharedPreferences sharedPref =  PreferenceManager.getDefaultSharedPreferences(Breeze.getAppContext());
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putString("saved_authtoken", token);
+		editor.commit();
+
+		Log.i(TAG, "Login succeeded profile token = " + profile.accessToken);
+	}
+	
+	public void logout() {
+		Log.i(TAG, "LOGOUT");
+		loginDidSucceed(null);
+	}
+	
+	public void loadProfile() {
+		SharedPreferences sharedPref =  PreferenceManager.getDefaultSharedPreferences(Breeze.getAppContext());
+		profile.accessToken = sharedPref.getString("saved_authtoken", null);	
+		Log.i(TAG, "Loaded profile token = " + profile.accessToken);
 	}
 	
 	public String getFirstName() {
@@ -57,11 +92,7 @@ public class LinkedInProfile {
 	public String getHeadline() {
 		return profile.headline;
 	}
-	
-	public void parseResult(String result) {
 		
-	}
-	
 	public String getAccessToken() {
 		if (profile.accessToken != "") {
 			return profile.accessToken;
@@ -89,59 +120,37 @@ public class LinkedInProfile {
 	    return requestURL;
 	}
 	
-	public String getProfileInfo(String access_token) {
+	public String getProfileInfo() {
 	    // Create a new HttpClient and Post Header
 		String host = "api.linkedin.com/v1/people/~?oauth2_access_token=" + getAccessToken();
-	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpGet httpget = new HttpGet("https://" + host);
 
-	    HttpResponse response;
-	    
-	    try {
-	        response = httpclient.execute(httpget);
-	        // Examine the response status
-	        Log.d("TAG",response.getStatusLine().toString());
+		JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, host, null,
+			    new Response.Listener<JSONObject>() 
+			    {
+			        @Override
+			        public void onResponse(JSONObject response) {   
+			                        // display response     
+			            Log.d("Response", response.toString());
+			            
+			        }
+			    }, 
+			    new Response.ErrorListener() 
+			    {
+					@Override
+					public void onErrorResponse(VolleyError arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+			    }
+			);
+			 
+			// add it to the RequestQueue   
+			queue.add(getRequest);		
 
-	        // Get hold of the response entity
-	        HttpEntity entity = response.getEntity();
-	        // If the response does not enclose an entity, there is no need
-	        // to worry about connection release
-
-	        if (entity != null) {
-	            InputStream instream = entity.getContent();
-	            String result = convertStreamToString(instream);
-	            instream.close();
-	            Log.d(TAG, "HTTP GET Response: " + result);
-	            parseResult(result);
-	        }
-
-
-	    } catch (Exception e) {}
-		return "default";
+			return "default";
 	}
 	
-	private static String convertStreamToString(InputStream is) {
 
-	    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-	    StringBuilder sb = new StringBuilder();
-
-	    String line = null;
-	    try {
-	        while ((line = reader.readLine()) != null) {
-	            sb.append(line + "\n");
-	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            is.close();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	    return sb.toString();
-	}
-	
 	private final String SCOPE = "";
 	private final String API_KEY = "75g5lmhj1mfxi9";
 	private final String SECRET_KEY = "S4zXc6kD9lE8shDU";
