@@ -86,7 +86,7 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
         holder.connect.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-       			fragment.openProfile(id);
+       			//fragment.openProfile(id);
        			layoutOld.setVisibility(View.GONE);
        			layoutNew.setVisibility(View.VISIBLE);
            }
