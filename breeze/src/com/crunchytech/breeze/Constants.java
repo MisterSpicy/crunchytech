@@ -4,6 +4,7 @@ public final class Constants {
 
 	public static final int NOTIFICATION_ID = 69;
 	
+	public static String TAG = "breeze";
 	public static final String REGISTERED = "registered";
 	public static final String DRAWER_ITEM = "drawer_item";
 }

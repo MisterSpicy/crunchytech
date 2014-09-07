@@ -86,5 +86,17 @@ public class FeedFragment extends ListFragment {
 		
 		return msgs;
 	}
+	
+	public void openProfile() {
+		
+	}
+	
+	public void hideProfile() {
+		
+	}
+	
+	public void connectProfile() {
+		
+	}
 }
 

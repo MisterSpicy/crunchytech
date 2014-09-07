@@ -1,11 +1,11 @@
 package com.crunchytech.breeze;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -18,14 +18,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
-/*
-
-        Intent intent = new Intent(this, MessageService.class);
-        intent.putExtra(MessageService.INTENT_EXTRA_USERNAME, userName);
-        startService(intent);
- *
- */
 
 public class MessagesActivity extends FragmentActivity {
 	private final String TAG = "Breezee";
@@ -73,7 +65,11 @@ public class MessagesActivity extends FragmentActivity {
 			Intent intent = new Intent(this, FirstTimeActivity.class);
 		    startActivity(intent);
 		}		
-		
+				
+		getActionBar().setIcon(null);
+		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE 
+		        | ActionBar.DISPLAY_SHOW_HOME 
+		        | ActionBar.DISPLAY_HOME_AS_UP);
 	}
 
 	@Override
@@ -240,4 +236,18 @@ public class MessagesActivity extends FragmentActivity {
 		getActionBar().setTitle(getResources().getStringArray(R.array.drawer_itemz)[position]);
 	}
 	
+	public void onFeedProfileClick(View v) {
+		FeedFragment fragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.content_frame);
+		fragment.openProfile();
+	}
+	
+	public void onFeedHideClick(View v) {
+		FeedFragment fragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.content_frame);
+		fragment.hideProfile();
+	}
+	
+	public void onFeedConnectClick(View v) {
+		FeedFragment fragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.content_frame);
+		fragment.connectProfile();
+	}
 }
