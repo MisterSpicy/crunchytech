@@ -62,7 +62,7 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
         
         ServerApi.nearbyUsers.get(position);
 
-        holder.picture.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.yes_icon));
+        holder.picture.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.missing_linkedin));
         holder.name.setText("Michelle");
         holder.title.setText("Breezemaster");
         holder.hide.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.no_icon));
