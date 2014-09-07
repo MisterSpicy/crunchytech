@@ -71,7 +71,35 @@
            android:textSize="14sp"
            android:textColor="@color/lightgrey" />
     </RelativeLayout>
-	        
+	   
+	<RelativeLayout
+	    android:id="@+id/feed_invite_layout"
+		android:layout_width="match_parent"
+		android:layout_height="40dp"
+		android:layout_below="@id/feed_text_layout"
+		android:layout_toRightOf="@id/feed_picture_layout"
+		android:orientation="horizontal"
+	    android:background="@color/white"
+		android:gravity="center"	    
+		android:visibility="gone">
+
+	   <ImageView
+            android:id="@+id/coffeeIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/coffee" />
+	   		
+	    <Button
+        android:id="@+id/sendCoffeeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Send a Coffee"
+		android:layout_toRightOf="@id/coffeeIcon"        
+        android:textColor="@color/green"
+	    android:background="@color/white"
+        android:textSize="14dp" />
+		
+	</RelativeLayout>    
 	<LinearLayout
 	    android:id="@+id/feed_actions_layout"
 		android:layout_width="fill_parent"

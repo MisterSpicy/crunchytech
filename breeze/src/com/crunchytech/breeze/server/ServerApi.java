@@ -28,7 +28,24 @@ public class ServerApi {
 	
 	public static ArrayList<UserInfo> nearbyUsers = new ArrayList<UserInfo>();
 	
-
+	public static UserInfo getUserInfoFromURL(String profileUrl) {
+		for(int i = 0; i < nearbyUsers.size(); i++) {
+			if(nearbyUsers.get(i).profileurl.equals(profileUrl)) {
+				return nearbyUsers.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public static UserInfo getUserInfoFromID(String id) {
+		for(int i = 0; i < nearbyUsers.size(); i++) {
+			if(nearbyUsers.get(i).ident.equals(id)) {
+				return nearbyUsers.get(i);
+			}
+		}
+		return null;
+	}
+	
 	public ServerApi() {
 		Log.i(TAG, "Instantiate Server Api?");
 	}
