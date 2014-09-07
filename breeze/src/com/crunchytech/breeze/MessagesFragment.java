@@ -1,5 +1,8 @@
 package com.crunchytech.breeze;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,15 +69,31 @@ public class MessagesFragment extends ListFragment {
 		startActivity(intent);
 	}
 
-//	public void updateList() {
-//		List<String> messages = getAllMessages();
-//
-//		/* Clear the adapter then re-populate */
-//		mMessagesAdapter.clear();
-//		
-//		for (int i = 0; i < messages.size(); i++) {
-//			mMessagesAdapter.add(messages.get(i));
-//		}
-//	}
+	public void updateList() {
+		ArrayList<String> messages = new ArrayList<String>();
+		messages.add("Hanna");
+		messages.add("Brian");
+		messages.add("Quoc");
+		messages.add("Greg");
+		messages.add("Matt");
+		
+		/* Clear the adapter then re-populate */
+		mMessagesAdapter.clear();
+		
+		for (int i = 0; i < messages.size(); i++) {
+			mMessagesAdapter.add(messages.get(i));
+		}
+	}
+	
+	public List<String> getAllMessages() {
+		ArrayList<String> msgs = new ArrayList<String>();
+		msgs.add("Hanna");
+		msgs.add("Brian");
+		msgs.add("Quoc");
+		msgs.add("Greg");
+		msgs.add("Matt");
+		
+		return msgs;
+	}
 }
 
