@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:paddingLeft="15dp"
+   android:paddingRight="15dp"
+   android:descendantFocusability="beforeDescendants">
+<RelativeLayout 
     android:layout_width="fill_parent"
     android:layout_height="120dp"
     android:orientation="vertical" 
@@ -10,18 +17,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:clickable="true"
             android:onClick="onFeedProfileClick" />
         <TextView
             android:id="@+id/feed_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:layout_toRightOf="@id/feed_picture"
             android:clickable="true"
             android:onClick="onFeedProfileClick"
             android:layout_gravity="bottom"
@@ -30,31 +32,29 @@
             android:id="@+id/feed_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:layout_below="@id/feed_name"
             android:clickable="true"
             android:onClick="onFeedProfileClick"
             android:layout_gravity="bottom"
             android:textColor="@android:color/black" />
+        
         <ImageView
             android:id="@+id/feed_hide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/feed_title"
             android:clickable="true"
             android:onClick="onFeedHideClick"
-            android:scaleType="centerCrop"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:scaleType="centerCrop" />
+        
         <ImageView
             android:id="@+id/feed_connect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/feed_hide"
             android:clickable="true"
             android:onClick="onFeedConnectClick"
-            android:scaleType="centerCrop"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:scaleType="centerCrop" />
         
 </RelativeLayout>
+</FrameLayout>
