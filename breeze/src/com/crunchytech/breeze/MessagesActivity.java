@@ -1,11 +1,19 @@
 package com.crunchytech.breeze;
 
+import java.math.BigDecimal;
+
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -72,6 +80,11 @@ public class MessagesActivity extends FragmentActivity {
 		        | ActionBar.DISPLAY_SHOW_HOME 
 		        | ActionBar.DISPLAY_HOME_AS_UP);
 		
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        startService(intent);
+		
+		
 		ServerApi.updateNearbyUsers();
 	}
 
@@ -131,9 +144,39 @@ public class MessagesActivity extends FragmentActivity {
 		return super.onPrepareOptionsMenu(menu);
 	}
 
+    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK;
+
+    // note that these credentials will differ between live & sandbox environments.
+    private static final String CONFIG_CLIENT_ID = "credential from developer.paypal.com";
+
+    private static final int REQUEST_CODE_PAYMENT = 1;
+    private static final int REQUEST_CODE_FUTURE_PAYMENT = 2;
+    private static final int REQUEST_CODE_PROFILE_SHARING = 3;
+
+    private static PayPalConfiguration config = new PayPalConfiguration()
+            .environment(CONFIG_ENVIRONMENT)
+            .clientId(CONFIG_CLIENT_ID)
+            // The following are only used in PayPalFuturePaymentActivity.
+            .merchantName("Hipster Store")
+            .merchantPrivacyPolicyUri(Uri.parse("https://www.example.com/privacy"))
+            .merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));
+    
+    private PayPalPayment getThingToBuy(String paymentIntent) {
+    	return new PayPalPayment(new BigDecimal("5.00"), "USD", "Send a Starbuck Giftcard",
+            paymentIntent);
+    }
+    
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
+        PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
 
+        Intent intent = new Intent(MessagesActivity.this, PaymentActivity.class);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
+        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+ 
+		return true;
+/*		
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
@@ -147,6 +190,7 @@ public class MessagesActivity extends FragmentActivity {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+*/		
 	}
 
 	public void initializeDrawerList(Bundle savedInstanceState) {
