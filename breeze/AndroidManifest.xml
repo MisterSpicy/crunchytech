@@ -29,6 +29,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+			<intent-filter>
+			  <action android:name="android.intent.action.VIEW"></action>
+			  <category android:name="android.intent.category.DEFAULT"></category>
+			  <category android:name="android.intent.category.BROWSABLE"></category>
+			  <data android:host="breeze.ninja" android:scheme="https"></data>
+			</intent-filter>
         </activity>
         <activity android:name=".chat.MessagingActivity" android:screenOrientation="portrait"
             android:parentActivityName="com.crunchytech.breeze.MessagesActivity">

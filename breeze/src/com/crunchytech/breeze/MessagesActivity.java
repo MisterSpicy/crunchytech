@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -39,6 +40,8 @@ public class MessagesActivity extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private String[] mNavigationDrawerItemTitles;
+	private LinkedInProfile myProfile;
+	public static boolean isLinkedInAuthenticated = false;
 	
     public static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
@@ -69,6 +72,7 @@ public class MessagesActivity extends FragmentActivity {
 		}
 
 		initializeDrawerList(savedInstanceState);
+		myProfile = new LinkedInProfile();
 
 		if (savedInstanceState == null) {
 			selectDrawerItem(0);
@@ -154,11 +158,12 @@ public class MessagesActivity extends FragmentActivity {
 
 		mDrawerListView = (ListView) findViewById(R.id.lstDrawer);
 		
-		NavItem[] drawerItem = new NavItem[3];
+		NavItem[] drawerItem = new NavItem[4];
 		
 		drawerItem[0] = new NavItem(R.drawable.sym_action_chat, "Messaging");
 		drawerItem[1] = new NavItem(R.drawable.ic_sysbar_quicksettings, "Settings");
 		drawerItem[2] = new NavItem(R.drawable.ic_menu_invite, "Invite");
+		drawerItem[3] = new NavItem(R.drawable.linkedin, "");
 		
 		NavArrayAdapter mDrawerAdapter = new NavArrayAdapter(this, R.layout.navigation_drawer_item, drawerItem);
 
@@ -211,6 +216,12 @@ public class MessagesActivity extends FragmentActivity {
 		case 2:
 			//fragment = new OtherFragment();
 			break;
+		case 3:
+			Intent viewIntent = new Intent	("android.intent.action.VIEW", 
+					Uri.parse(myProfile.getLinkedInAuthURL()) 
+											);
+			startActivity(viewIntent);
+			return;
 		default:
 			break;
 		}
