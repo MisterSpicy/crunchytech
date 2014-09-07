@@ -21,6 +21,7 @@
 	    android:layout_width="100dp"
 	    android:layout_height="fill_parent"
 	    android:onClick="onFeedProfileClick"
+	    android:background="@drawable/layer_card_background"
 	    android:orientation="vertical" >
 
 	    <ImageView
