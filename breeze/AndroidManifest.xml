@@ -7,46 +7,64 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
-    <uses-feature
-            android:name="android.hardware.microphone"
-            android:required="false"/>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
-        android:name="Breeze"
+        android:name=".Breeze"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-            
         <activity
-            android:name="com.crunchytech.breeze.MessagesActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
-            <intent-filter>
+            android:name=".MessagesActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+           
+           <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-			<intent-filter>
-			  <action android:name="android.intent.action.VIEW"></action>
-			  <category android:name="android.intent.category.DEFAULT"></category>
-			  <category android:name="android.intent.category.BROWSABLE"></category>
-			  <data android:host="breeze.ninja" android:scheme="https"></data>
-			</intent-filter>
+            
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+                <category android:name="android.intent.category.BROWSABLE" >
+                </category>
+
+                <data
+                    android:host="breeze.ninja"
+                    android:scheme="https" >
+                </data>
+            </intent-filter>
         </activity>
-        <activity android:name=".chat.MessagingActivity" android:screenOrientation="portrait"
-            android:parentActivityName="com.crunchytech.breeze.MessagesActivity">
-       		 <!-- Parent activity meta-data to support 4.0 and lower -->
-        	<meta-data
-            	android:name="android.support.PARENT_ACTIVITY"
-            	android:value="com.crunchytech.breeze.MessagesActivity" />
-        
-		</activity>
-        <service android:name=".chat.MessageService"/>
-        
+        <activity
+            android:name=".chat.MessagingActivity"
+            android:parentActivityName=".MessagesActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.crunchytech.breeze.MessagesActivity" />
+        </activity>
+
+        <service android:name=".chat.MessageService" />
+
+        <activity
+            android:name=".FirstTimeActivity"
+            android:label="@string/title_activity_first_time" >
+             
+        </activity>
     </application>
 
 </manifest>
