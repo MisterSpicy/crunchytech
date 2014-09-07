@@ -83,7 +83,7 @@ public class MessagesFragment extends ListFragment {
 		messages.add("Brian");
 		messages.add("Quoc");
 		messages.add("Greg");
-		messages.add("Matt");
+		messages.add("Matthew");
 		
 		/* Clear the adapter then re-populate */
 		mMessagesAdapter.clear();
