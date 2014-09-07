@@ -24,9 +24,16 @@ public class ServerApi {
 	static String serverURL = "http://107.170.245.92:5000/";
 	static String register = "register";
 	static String getnearby = "getnearby";
+	
+	public static ArrayList<UserInfo> nearbyUsers = new ArrayList<UserInfo>();
+	
 
 	public ServerApi() {
 		Log.i(TAG, "Instantiate Server Api?");
+	}
+	
+	public static void updateNearbyUsers(){
+		getNearby();
 	}
 
 	/**
@@ -46,9 +53,6 @@ public class ServerApi {
 		// Tag used to cancel the request
 		String tag_json_obj = "json_obj_req";
 
-		// ProgressDialog pDialog = new ProgressDialog(this);
-		// pDialog.setMessage("Loading...");
-		// pDialog.show();
 
 		StringRequest postRequest = new StringRequest(Method.POST, requestUrl,
 				new Response.Listener<String>() {
@@ -81,11 +85,13 @@ public class ServerApi {
 		};
 		Breeze.getInstance().addToRequestQueue(postRequest);
 	}
+	
 
-	public static ArrayList<UserInfo> getNearby() {
+	private static ArrayList<UserInfo> getNearby() {
 		Log.i(TAG, "Get All Nearby Users");
 		String requestUrl = serverURL + getnearby;
-
+		ArrayList<UserInfo> userinfos = new ArrayList<UserInfo>();
+		
 		// prepare the Request
 		JsonObjectRequest getRequest = new JsonObjectRequest(Method.GET,
 				requestUrl, null, new Response.Listener<JSONObject>() {
@@ -93,6 +99,7 @@ public class ServerApi {
 					public void onResponse(JSONObject response) {
 						// display response
 						Log.d(TAG, response.toString());
+						nearbyUsers = parseRequest(response);
 					}
 				}, new Response.ErrorListener() {
 					@Override
@@ -103,6 +110,7 @@ public class ServerApi {
 
 		// add it to the RequestQueue
 		Breeze.getInstance().addToRequestQueue(getRequest);
+		
 		return null;
 	}
 
@@ -123,13 +131,13 @@ public class ServerApi {
 								.getString("profileurl"), anobj
 								.getString("headline"), anobj
 								.getString("picurl")));
-
 			}
+			
+//			callback.onResponse(userinfos);
 		} catch (JSONException e) {
 			Log.e(TAG, "I fucked up the JSON object parsing");
 			e.printStackTrace();
 		}
-
 		return userinfos;
 	}
 }
