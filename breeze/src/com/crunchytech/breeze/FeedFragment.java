@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class FeedFragment extends ListFragment {
 
@@ -22,7 +23,7 @@ public class FeedFragment extends ListFragment {
 	 public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mFeedAdapter = new FeedArrayAdapter(Breeze.getAppContext(), -1);
+		mFeedAdapter = new FeedArrayAdapter(getActivity(), Breeze.getAppContext(), -1);
 	  	setListAdapter(mFeedAdapter);
 	 }
 	
@@ -96,7 +97,7 @@ public class FeedFragment extends ListFragment {
 	}
 	
 	public void connectProfile() {
-		
+
 	}
 }
 

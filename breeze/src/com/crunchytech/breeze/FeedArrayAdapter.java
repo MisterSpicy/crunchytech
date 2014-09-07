@@ -1,8 +1,10 @@
 package com.crunchytech.breeze;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -11,9 +13,11 @@ import android.widget.TextView;
 public class FeedArrayAdapter extends ArrayAdapter<String> {
 
 	private LayoutInflater mInflater;
+	private FeedFragment fragment;
 
-	public FeedArrayAdapter(Context context, int vID) {
+	public FeedArrayAdapter(Activity activity, Context context, int vID) {
 		super(context, vID);
+		fragment = (FeedFragment) activity.getFragmentManager().findFragmentById(R.id.content_frame);
 		mInflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
@@ -53,7 +57,35 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
         holder.title.setText("Breezemaster");
         holder.hide.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.no_icon));
         holder.connect.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.yes_icon));
+        
+        holder.picture.setOnClickListener(onProfileClickListener);
+        holder.name.setOnClickListener(onProfileClickListener);
+        holder.title.setOnClickListener(onProfileClickListener);
+        holder.hide.setOnClickListener(onHideClickListener);
+        holder.connect.setOnClickListener(onConnectClickListener);
 
         return convertView;
 	}
+	
+	public OnClickListener onProfileClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+    		fragment.openProfile();
+        }
+    };
+    
+	private OnClickListener onHideClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+        	fragment.hideProfile();
+        }
+    };
+    
+	private OnClickListener onConnectClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+        	fragment.connectProfile();
+
+        }
+    };
 }

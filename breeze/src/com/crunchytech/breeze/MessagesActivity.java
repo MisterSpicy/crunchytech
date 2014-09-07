@@ -237,19 +237,4 @@ public class MessagesActivity extends FragmentActivity {
 		mDrawerListView.setItemChecked(position, true);
 		getActionBar().setTitle(getResources().getStringArray(R.array.drawer_itemz)[position]);
 	}
-	
-	public void onFeedProfileClick(View v) {
-		FeedFragment fragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-		fragment.openProfile();
-	}
-	
-	public void onFeedHideClick(View v) {
-		FeedFragment fragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-		fragment.hideProfile();
-	}
-	
-	public void onFeedConnectClick(View v) {
-		FeedFragment fragment = (FeedFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-		fragment.connectProfile();
-	}
 }
