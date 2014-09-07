@@ -31,6 +31,7 @@ public class LinkedInProfile {
 		String headline = "";
 		String accessToken = "";
 		String profileUrl = "";
+		String photoUrl = "";
 		
 		public String getProfileUrl() {
 			return profileUrl;
@@ -38,6 +39,14 @@ public class LinkedInProfile {
 
 		public void setProfileUrl(String profileUrl) {
 			this.profileUrl = profileUrl;
+		}
+		
+		public void setPhotoUrl(String photoUrl) {
+			this.photoUrl = photoUrl;
+		}
+		
+		public String getPhotoUrl() {
+			return photoUrl;
 		}
 
 		public void setFirstName(String first) {
@@ -151,7 +160,7 @@ public class LinkedInProfile {
 	
 	public String getProfileInfo() {
 	    // Create a new HttpClient and Post Header
-		String host = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url)?format=json&oauth2_access_token=" + getAccessToken();
+		String host = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url,public-profile-url)?format=json&oauth2_access_token=" + getAccessToken();
 
 		JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, host, null,
 			    new Response.Listener<JSONObject>() 
@@ -164,7 +173,8 @@ public class LinkedInProfile {
 							profile.setFirstName(response.getString("firstName"));
 				            profile.setLastName(response.getString("lastName"));
 				            profile.setHeadline(response.getString("headline"));
-				            profile.setProfileUrl(response.getString("pictureUrl"));
+				            profile.setProfileUrl(response.getString("public-profile-url"));
+				            profile.setPhotoUrl(response.getString("picture-url"));
 				            
 				            // QL: notify somebody about this.
 				            
