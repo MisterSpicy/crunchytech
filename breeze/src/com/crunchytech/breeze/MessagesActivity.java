@@ -11,13 +11,14 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+import com.crunchytech.breeze.server.ServerApi;
 
 public class MessagesActivity extends FragmentActivity {
 	private final String TAG = "Breezee";
@@ -70,6 +71,8 @@ public class MessagesActivity extends FragmentActivity {
 		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE 
 		        | ActionBar.DISPLAY_SHOW_HOME 
 		        | ActionBar.DISPLAY_HOME_AS_UP);
+		
+		ServerApi.updateNearbyUsers();
 	}
 
 	@Override
