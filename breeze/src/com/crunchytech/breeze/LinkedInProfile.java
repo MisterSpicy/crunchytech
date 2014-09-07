@@ -1,5 +1,6 @@
 package com.crunchytech.breeze;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.volley.Request;
@@ -29,6 +30,38 @@ public class LinkedInProfile {
 		String lastName = "";
 		String headline = "";
 		String accessToken = "";
+		String profileUrl = "";
+		
+		public String getProfileUrl() {
+			return profileUrl;
+		}
+
+		public void setProfileUrl(String profileUrl) {
+			this.profileUrl = profileUrl;
+		}
+
+		public void setFirstName(String first) {
+			firstName = first;
+		}
+		
+		public void setLastName(String last) {
+			lastName = last;
+		}
+		
+		public void setHeadline(String headline_) {
+			headline = headline_;
+		}
+		public String getFirstName() {
+			return firstName;
+		}
+
+		public String getLastName() {
+			return lastName;
+		}
+
+		public String getHeadline() {
+			return headline;
+		}
 	}
 	
 	public Profile profile;
@@ -40,18 +73,6 @@ public class LinkedInProfile {
 		queue = VolleySingleton.getInstance().getRequestQueue();		
 		
 		loadProfile();
-	}
-	
-	public void setFirstName(String first) {
-		profile.firstName = first;
-	}
-	
-	public void setLastName(String last) {
-		profile.lastName = last;
-	}
-	
-	public void setHeadline(String headline) {
-		profile.headline = headline;
 	}
 	
 	public boolean isLogin() {
@@ -67,6 +88,10 @@ public class LinkedInProfile {
 		editor.commit();
 
 		Log.i(TAG, "Login succeeded profile token = " + profile.accessToken);
+		
+		if(token != null) {
+			getProfileInfo();
+		}
 	}
 	
 	public void logout() {
@@ -78,6 +103,10 @@ public class LinkedInProfile {
 		SharedPreferences sharedPref =  PreferenceManager.getDefaultSharedPreferences(Breeze.getAppContext());
 		profile.accessToken = sharedPref.getString("saved_authtoken", null);	
 		Log.i(TAG, "Loaded profile token = " + profile.accessToken);
+		
+		if(profile.accessToken != null) {
+			getProfileInfo();			
+		}
 	}
 	
 	public String getFirstName() {
@@ -122,7 +151,7 @@ public class LinkedInProfile {
 	
 	public String getProfileInfo() {
 	    // Create a new HttpClient and Post Header
-		String host = "api.linkedin.com/v1/people/~?oauth2_access_token=" + getAccessToken();
+		String host = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url)?format=json&oauth2_access_token=" + getAccessToken();
 
 		JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, host, null,
 			    new Response.Listener<JSONObject>() 
@@ -131,15 +160,25 @@ public class LinkedInProfile {
 			        public void onResponse(JSONObject response) {   
 			                        // display response     
 			            Log.d("Response", response.toString());
-			            
+			            try {
+							profile.setFirstName(response.getString("firstName"));
+				            profile.setLastName(response.getString("lastName"));
+				            profile.setHeadline(response.getString("headline"));
+				            profile.setProfileUrl(response.getString("pictureUrl"));
+				            
+				            // QL: notify somebody about this.
+				            
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 			        }
 			    }, 
 			    new Response.ErrorListener() 
 			    {
 					@Override
 					public void onErrorResponse(VolleyError arg0) {
-						// TODO Auto-generated method stub
-						
+			            Log.e("Response", arg0.toString());						
 					}
 			    }
 			);
