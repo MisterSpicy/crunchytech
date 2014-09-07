@@ -119,7 +119,7 @@ public class MessagesActivity extends FragmentActivity {
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerListView);
-		menu.findItem(R.id.settings).setVisible(!drawerOpen);
+		menu.findItem(R.id.discover).setVisible(!drawerOpen);
 		menu.findItem(R.id.messages).setVisible(!drawerOpen);
 
 		return super.onPrepareOptionsMenu(menu);
@@ -133,8 +133,8 @@ public class MessagesActivity extends FragmentActivity {
 		}
 		
 		switch (item.getItemId()) {
-			case R.id.settings:
-				selectDrawerItem(2);
+			case R.id.discover:
+				selectDrawerItem(0);
 				return true;
 			case R.id.messages:
 				selectDrawerItem(1);

@@ -4,7 +4,7 @@
     <string name="app_name">Breeze</string>
     <string name="open_drawer">Open app drawer</string>
     <string name="close_drawer">Close app drawer</string>
-    <string name="settings">Settings</string>
+    <string name="discover">Discover</string>
     <string name="messages">Messages</string>
 
     <string-array name="drawer_itemz">
