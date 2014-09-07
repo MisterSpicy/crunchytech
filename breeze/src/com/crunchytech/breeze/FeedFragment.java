@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,6 @@ public class FeedFragment extends ListFragment {
 			String mID = lv.getAdapter().getItem(position).toString();
 			Toast.makeText(getActivity(), mID, Toast.LENGTH_LONG).show();
 	 }
-	
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
@@ -89,17 +89,19 @@ public class FeedFragment extends ListFragment {
 		return msgs;
 	}
 	
-	public void openProfile(String id) {
-		
+	public void openProfile(String url) {
+		Intent intent = new Intent(getActivity(), LinkedInProfileViewer.class);
+		intent.putExtra("profileurl", url);
+		startActivity(intent);
 	}
 	
-	public void hideProfile(String id) {
-		mFeedAdapter.remove(id);
+	public void hideProfile(String url) {
+		mFeedAdapter.remove(url);
 		
 		updateList();
 	}
 	
-	public void connectProfile(String id) {
+	public void connectProfile(String url) {
 
 	}
 }
