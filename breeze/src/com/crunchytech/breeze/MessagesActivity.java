@@ -159,7 +159,6 @@ public class MessagesActivity extends FragmentActivity {
 		drawerItem[1] = new NavItem(R.drawable.drawer_messages, "Messages");
 		drawerItem[2] = new NavItem(R.drawable.invite, "Invite");
 		drawerItem[3] = new NavItem(R.drawable.drawer_logout, "Log out");
-		drawerItem[4] = new NavItem(R.drawable.linkedin, "");
 		
 		NavArrayAdapter mDrawerAdapter = new NavArrayAdapter(this, R.layout.navigation_drawer_item, drawerItem);
 
