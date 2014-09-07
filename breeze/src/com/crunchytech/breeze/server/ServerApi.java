@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -66,17 +67,19 @@ public class ServerApi {
 		Log.i(TAG, "Send Registration to the server");
 		String requestUrl = serverURL + register;
 		Log.i(TAG, "requestURL = " + requestUrl);
+		
+		Log.i(TAG, "SEND REGISTRATION: name="+name+" id="+id+" profileurl="+profileurl);
 
 		// Tag used to cancel the request
 		String tag_json_obj = "json_obj_req";
 
 
-		StringRequest postRequest = new StringRequest(Method.POST, requestUrl,
+		StringRequest postRequest = new StringRequest(Request.Method.POST, requestUrl,
 				new Response.Listener<String>() {
 
 					@Override
 					public void onResponse(String response) {
-						Log.d(TAG, response);
+						Log.d(TAG, "PostRequest Response:" + response);
 
 					}
 				}, new Response.ErrorListener() {
@@ -100,6 +103,7 @@ public class ServerApi {
 				return params;
 			}
 		};
+		Log.d(TAG, postRequest.toString());
 		Breeze.getInstance().addToRequestQueue(postRequest);
 	}
 	

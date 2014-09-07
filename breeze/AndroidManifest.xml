@@ -82,6 +82,14 @@
             	android:value="com.crunchytech.breeze.MessagesActivity" />
         
 		</activity>
+       	<activity android:name="com.crunchytech.breeze.LinkedInProfileViewer" android:screenOrientation="portrait"
+            android:parentActivityName=".MessagesActivity">
+       		 <!-- Parent activity meta-data to support 4.0 and lower -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+            	android:value="com.crunchytech.breeze.MessagesActivity" />
+        
+		</activity>
         <service android:name=".chat.MessageService"/>
         <service android:name="com.paypal.android.sdk.payments.PayPalService"
             android:exported="false" />
