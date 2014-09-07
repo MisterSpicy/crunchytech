@@ -60,13 +60,12 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
         
-<<<<<<< HEAD
         UserInfo user = ServerApi.getUserInfoFromURL(id);
        
         holder.picture.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.no_icon));
         holder.name.setText(user.name);
         holder.title.setText(user.headline);
-=======
+        
         ServerApi.nearbyUsers.get(position);
 
         holder.picture.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.missing_linkedin));
