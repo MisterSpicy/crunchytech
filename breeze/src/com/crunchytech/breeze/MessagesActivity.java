@@ -1,5 +1,7 @@
 package com.crunchytech.breeze;
 
+import com.crunchytech.breeze.chat.MessageService;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -20,6 +22,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+/*
+
+        Intent intent = new Intent(this, MessageService.class);
+        intent.putExtra(MessageService.INTENT_EXTRA_USERNAME, userName);
+        startService(intent);
+ *
+ */
 
 public class MessagesActivity extends FragmentActivity {
 
@@ -120,10 +130,15 @@ public class MessagesActivity extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
+		System.out.println("Starting message");
+        Intent intent = new Intent(this, MessageService.class);
+        intent.putExtra(MessageService.INTENT_EXTRA_USERNAME, "Quoc");
+        startService(intent);			
+
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-
+		
 //		switch (item.getItemId()) {
 //			case R.id.settings:
 //				selectDrawerItem(1);

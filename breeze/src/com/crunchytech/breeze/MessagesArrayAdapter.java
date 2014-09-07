@@ -49,7 +49,8 @@ public class MessagesArrayAdapter extends ArrayAdapter<String> {
         holder.name.setText("test");
         holder.msg.setText("test");
         holder.time.setText("test");
+        System.out.println("printting row = "+ position);
 
-		return convertView;
+        return convertView;
 	}
 }
