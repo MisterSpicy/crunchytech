@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class MainActivity extends Activity {
     private ListView lv;
     private ArrayAdapter<String> BTArrayAdapter;
     private ListView myListView;
+    private EditText et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class MainActivity extends Activity {
         Visible = (Button) findViewById(R.id.button3);
         list = (Button) findViewById(R.id.button4);
         find = (Button) findViewById(R.id.buttonfind);
+        et = (EditText) findViewById(R.id.et1);
 
         // create the arrayAdapter that contains the BTDevices, and set it to
         // the ListView
