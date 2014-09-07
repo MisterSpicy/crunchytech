@@ -25,7 +25,7 @@ public class LinkedInProfile {
 	}
 	
 	private String TAG = "BreezeeLinkedIn";
-	private class Profile {
+	public class Profile {
 		String id = "";
 		String firstName = "";
 		String lastName = "";
@@ -81,6 +81,7 @@ public class LinkedInProfile {
 			return profile.headline;
 		}
 	}
+	
 	
 	public Profile profile;
 	private RequestQueue queue;
