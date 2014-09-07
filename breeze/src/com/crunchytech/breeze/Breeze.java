@@ -7,6 +7,7 @@ public class Breeze extends Application {
 	
 	private static Breeze mInstance;
     private static Context mAppContext;
+	private static LinkedInProfile myProfile;
 
     @Override
     public void onCreate() {
@@ -14,6 +15,13 @@ public class Breeze extends Application {
         mInstance = this;
         
         this.setAppContext(getApplicationContext());
+    }
+    
+    public static LinkedInProfile getProfile() {
+    	if(myProfile == null) {
+    		myProfile = new LinkedInProfile();    		
+    	}
+    	return myProfile;
     }
 
     public static Breeze getInstance() {

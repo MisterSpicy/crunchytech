@@ -34,8 +34,6 @@ public class MessagesActivity extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private String[] mNavigationDrawerItemTitles;
-	public static boolean isLinkedInAuthenticated = false;
-	public static LinkedInProfile myProfile;
 	
     public static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
@@ -66,13 +64,22 @@ public class MessagesActivity extends FragmentActivity {
 		}
 
 		initializeDrawerList(savedInstanceState);
-		myProfile = new LinkedInProfile();
 		
 		if (savedInstanceState == null) {
 			selectDrawerItem(0);
-		}
+		}	
+		
+		if(!Breeze.getProfile().isLogin()) {
+			Intent intent = new Intent(this, FirstTimeActivity.class);
+		    startActivity(intent);
+		}		
+		
 	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+	}
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -150,13 +157,12 @@ public class MessagesActivity extends FragmentActivity {
 
 		mDrawerListView = (ListView) findViewById(R.id.lstDrawer);
 		
-		NavItem[] drawerItem = new NavItem[5];
+		NavItem[] drawerItem = new NavItem[4];
 		
 		drawerItem[0] = new NavItem(R.drawable.discover, "Discover");
 		drawerItem[1] = new NavItem(R.drawable.drawer_messages, "Messages");
 		drawerItem[2] = new NavItem(R.drawable.drawer_logout, "Log out");
 		drawerItem[3] = new NavItem(R.drawable.invite, "Invite");
-		drawerItem[4] = new NavItem(R.drawable.linkedin, "");
 		
 		NavArrayAdapter mDrawerAdapter = new NavArrayAdapter(this, R.layout.navigation_drawer_item, drawerItem);
 
@@ -207,15 +213,14 @@ public class MessagesActivity extends FragmentActivity {
 			fragment = new MessagesFragment();
 			break;
 		case 2:
-			//fragment = new SettingsFragment();
-			break;
+			{
+				Breeze.getProfile().logout();
+				Intent intent = new Intent(this, FirstTimeActivity.class);
+				startActivity(intent);
+				return;
+			}
 		case 3:
 			//fragment = new InviteFragment();
-			return;
-		case 4:
-			Intent intent = new Intent(this, LinkedInLogin.class);
-		    startActivity(intent);
-		    Log.d(TAG, "MessagesActivity accessToken: " + myProfile.getAccessToken());
 			return;
 		default:
 			break;

@@ -17,4 +17,6 @@
     <string name="title_activity_first_time">FirstTimeActivity</string>
     <string name="hello_world">Hello world!</string>
 	<string name="tagline">don\'t let opportunity\nblow pass you</string>
+	<string name="saved_authtoken">saved_authtoken</string>
+
 </resources>
