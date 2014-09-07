@@ -209,6 +209,9 @@ public class MessagesActivity extends FragmentActivity {
 			fragment = new MessagesFragment();
 			break;
 		case 2:
+			//fragment = new InviteFragment();
+			return;
+		case 3:
 
 			{
 				Breeze.getProfile().logout();
@@ -217,9 +220,6 @@ public class MessagesActivity extends FragmentActivity {
 				return;
 			}
 
-		case 3:
-			//fragment = new InviteFragment();
-			return;
 		default:
 			break;
 		}
