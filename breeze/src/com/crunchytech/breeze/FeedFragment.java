@@ -21,8 +21,7 @@ public class FeedFragment extends ListFragment {
 	@Override
 	 public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//mFeedListView.addHeaderView(new View(this));
-		//mFeedListView.addFooterView(new View(this));
+
 		mFeedAdapter = new FeedArrayAdapter(Breeze.getAppContext(), -1);
 	  	setListAdapter(mFeedAdapter);
 	 }
