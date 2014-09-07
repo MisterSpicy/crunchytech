@@ -9,6 +9,7 @@
     <string name="messages">Messages</string>
     
     <string-array name="drawer_itemz">
+        <item>Feed</item>
         <item>Messages</item>
         <item>Settings</item>
         <item>Invite</item>
