@@ -37,6 +37,7 @@ public class FeedFragment extends ListFragment {
 	 @Override
 	 public void onListItemClick(ListView lv, View v, int position, long id) {
 			String mID = lv.getAdapter().getItem(position).toString();
+			Toast.makeText(getActivity(), mID, Toast.LENGTH_LONG).show();
 	 }
 	
 
@@ -88,15 +89,17 @@ public class FeedFragment extends ListFragment {
 		return msgs;
 	}
 	
-	public void openProfile() {
+	public void openProfile(String id) {
 		
 	}
 	
-	public void hideProfile() {
+	public void hideProfile(String id) {
+		mFeedAdapter.remove(id);
 		
+		updateList();
 	}
 	
-	public void connectProfile() {
+	public void connectProfile(String id) {
 
 	}
 }

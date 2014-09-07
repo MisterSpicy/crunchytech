@@ -58,34 +58,48 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
         holder.hide.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.no_icon));
         holder.connect.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.yes_icon));
         
-        holder.picture.setOnClickListener(onProfileClickListener);
-        holder.name.setOnClickListener(onProfileClickListener);
-        holder.title.setOnClickListener(onProfileClickListener);
-        holder.hide.setOnClickListener(onHideClickListener);
-        holder.connect.setOnClickListener(onConnectClickListener);
+        holder.picture.setOnClickListener(new OnProfileClickListener(id));
+        holder.name.setOnClickListener(new OnProfileClickListener(id));
+        holder.title.setOnClickListener(new OnProfileClickListener(id));
+        holder.hide.setOnClickListener(new OnHideClickListener(id));
+        holder.connect.setOnClickListener(new OnConnectClickListener(id));
 
         return convertView;
 	}
 	
-	public OnClickListener onProfileClickListener = new OnClickListener() {
+	public class OnProfileClickListener implements OnClickListener {
+	     String id;
+	     public OnProfileClickListener(String id) {
+	          this.id = id;
+	     }
+	     
         @Override
         public void onClick(View v) {
-    		fragment.openProfile();
+    		fragment.openProfile(id);
         }
     };
     
-	private OnClickListener onHideClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        	fragment.hideProfile();
-        }
-    };
+	public class OnHideClickListener implements OnClickListener {
+	     String id;
+	     public OnHideClickListener(String id) {
+	          this.id = id;
+	     }
+	     
+       @Override
+       public void onClick(View v) {
+   		fragment.hideProfile(id);
+       }
+   };
     
-	private OnClickListener onConnectClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        	fragment.connectProfile();
-
-        }
-    };
+	public class OnConnectClickListener implements OnClickListener {
+	     String id;
+	     public OnConnectClickListener(String id) {
+	          this.id = id;
+	     }
+	     
+       @Override
+       public void onClick(View v) {
+   		fragment.connectProfile(id);
+       }
+   };
 }
