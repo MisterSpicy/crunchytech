@@ -17,6 +17,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,15 +34,14 @@ import android.widget.ListView;
  */
 
 public class MessagesActivity extends FragmentActivity {
-
-	String code;
+	private final String TAG = "Breezee";
 
 	private ListView mDrawerListView;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private String[] mNavigationDrawerItemTitles;
-	private LinkedInProfile myProfile;
 	public static boolean isLinkedInAuthenticated = false;
+	public static LinkedInProfile myProfile;
 	
     public static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
@@ -73,7 +73,7 @@ public class MessagesActivity extends FragmentActivity {
 
 		initializeDrawerList(savedInstanceState);
 		myProfile = new LinkedInProfile();
-
+		
 		if (savedInstanceState == null) {
 			selectDrawerItem(0);
 		}
@@ -217,10 +217,9 @@ public class MessagesActivity extends FragmentActivity {
 			//fragment = new OtherFragment();
 			break;
 		case 3:
-			Intent viewIntent = new Intent	("android.intent.action.VIEW", 
-					Uri.parse(myProfile.getLinkedInAuthURL()) 
-											);
-			startActivity(viewIntent);
+			Intent intent = new Intent(this, LinkedInLogin.class);
+		    startActivity(intent);
+		    Log.d(TAG, "MessagesActivity accessToken: " + myProfile.getAccessToken());
 			return;
 		default:
 			break;
@@ -239,4 +238,5 @@ public class MessagesActivity extends FragmentActivity {
 		mDrawerListView.setItemChecked(position, true);
 		getActionBar().setTitle(getResources().getStringArray(R.array.drawer_itemz)[position]);
 	}
+	
 }

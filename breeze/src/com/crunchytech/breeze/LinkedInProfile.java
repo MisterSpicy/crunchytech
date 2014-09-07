@@ -80,11 +80,11 @@ public class LinkedInProfile {
 		return requestURL;
 	}
 	
-	public String getAuthToken(String code) {
+	public String getAuthTokenURL(String code) {
 		String requestURL = "https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code" + 
-                                           "&code=AUTHORIZATION_CODE" + code + 
+                                           "&code=" + code + 
                                            "&redirect_uri=" + REDIRECT_URI + 
-                                           "&client_id=YOUR_API_KEY" + API_KEY + 
+                                           "&client_id=" + API_KEY + 
                                            "&client_secret=" + SECRET_KEY;
 	    return requestURL;
 	}
