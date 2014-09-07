@@ -14,5 +14,14 @@ public class ServerApi {
 	
 	public static void sendRegistration(String name, String id, String purl){
 		Log.i(TAG, "Send Registration to the server");
+		String requestUrl = serverURL+register;
+		Log.i(TAG, "requestURL = " + requestUrl);
+		
+		
+	}
+	
+	public static void getNearby(){
+		Log.i(TAG, "Get All Nearby Users");
+		String requestUrl = serverURL+getnearby;
 	}
 }
