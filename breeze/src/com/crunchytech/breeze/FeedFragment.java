@@ -31,8 +31,8 @@ public class FeedFragment extends ListFragment {
 	 }
 	
 	@Override
-	public void onStart() {
-		super.onStart();
+	public void onResume() {
+		super.onResume();
 		
 		updateList();
 	}

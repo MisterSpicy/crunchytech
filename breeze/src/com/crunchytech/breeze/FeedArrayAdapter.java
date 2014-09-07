@@ -1,7 +1,5 @@
 package com.crunchytech.breeze;
 
-import com.crunchytech.breeze.server.ServerApi;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.crunchytech.breeze.server.ServerApi;
+import com.crunchytech.breeze.server.UserInfo;
 
 public class FeedArrayAdapter extends ArrayAdapter<String> {
 
@@ -60,11 +60,11 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
         
-        ServerApi.nearbyUsers.get(position);
-
-        holder.picture.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.yes_icon));
-        holder.name.setText("Michelle");
-        holder.title.setText("Breezemaster");
+        UserInfo user = ServerApi.getUserInfoFromURL(id);
+       
+        holder.picture.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.no_icon));
+        holder.name.setText(user.name);
+        holder.title.setText(user.headline);
         holder.hide.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.no_icon));
         holder.connect.setImageDrawable(Breeze.getAppContext().getResources().getDrawable(R.drawable.yes_icon));
         
