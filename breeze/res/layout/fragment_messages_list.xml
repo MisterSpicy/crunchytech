@@ -3,8 +3,8 @@
         android:id="@+id/lstMessages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightblue"
-        android:divider="@color/blue"
+        android:background="@color/white"
+        android:divider="@color/lightblue"
 		android:dividerHeight="1dp"
         android:listSelector="@drawable/activated_background"
 		android:clickable="true" >

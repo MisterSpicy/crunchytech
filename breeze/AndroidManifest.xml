@@ -7,7 +7,13 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
+    <uses-feature
+            android:name="android.hardware.microphone"
+            android:required="false"/>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    
     <application
         android:name="Breeze"
         android:allowBackup="true"
@@ -16,6 +22,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.crunchytech.breeze.MessagesActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +36,9 @@
 			  <data android:host="breeze.ninja" android:scheme="https"></data>
 			</intent-filter>
         </activity>
+        <activity android:name=".chat.MessagingActivity" android:screenOrientation="portrait"/>       
+        <service android:name=".chat.MessageService"/>
+        
     </application>
 
 </manifest>

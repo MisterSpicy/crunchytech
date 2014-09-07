@@ -1,5 +1,7 @@
 package com.crunchytech.breeze;
 
+import com.crunchytech.breeze.chat.MessageService;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -22,6 +24,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+/*
+
+        Intent intent = new Intent(this, MessageService.class);
+        intent.putExtra(MessageService.INTENT_EXTRA_USERNAME, userName);
+        startService(intent);
+ *
+ */
+
 public class MessagesActivity extends FragmentActivity {
 
 	String code;
@@ -43,7 +53,7 @@ public class MessagesActivity extends FragmentActivity {
 
 		if (savedInstanceState != null) {
 			int selectedTabIndex = savedInstanceState.getInt("STATE_SELECTED_NAVIGATION_ITEM");
-			getActionBar().setSelectedNavigationItem(selectedTabIndex);
+			//getActionBar().setSelectedNavigationItem(selectedTabIndex);
 		}
 		
 		if (findViewById(R.id.content_frame) != null) {
@@ -94,7 +104,7 @@ public class MessagesActivity extends FragmentActivity {
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-			getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
+			//getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
 		}
 	}
 
@@ -127,7 +137,7 @@ public class MessagesActivity extends FragmentActivity {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-
+		
 //		switch (item.getItemId()) {
 //			case R.id.settings:
 //				selectDrawerItem(1);
