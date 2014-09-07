@@ -14,6 +14,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.crunchytech.breeze.Breeze;
 
 public class ServerApi {
 	static String serverURL = "http://107.170.245.92:5000/";
@@ -36,13 +38,13 @@ public class ServerApi {
 		// pDialog.setMessage("Loading...");
 		// pDialog.show();
 
-		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, requestUrl,
-				null, new Response.Listener<JSONObject>() {
+		StringRequest postRequest = new StringRequest(Method.POST, requestUrl,
+				new Response.Listener<String>() {
 
 					@Override
-					public void onResponse(JSONObject response) {
-						Log.d(TAG, response.toString());
-						// pDialog.hide();
+					public void onResponse(String response) {
+						Log.d(TAG, response);
+						
 					}
 				}, new Response.ErrorListener() {
 
@@ -64,7 +66,7 @@ public class ServerApi {
 				return params;
 			}
 		};
-
+		Breeze.getInstance().addToRequestQueue(postRequest); 
 	}
 
 	public static void getNearby() {
@@ -92,6 +94,6 @@ public class ServerApi {
 		);
 		 
 		// add it to the RequestQueue   
-//		queue.add(getRequest);
+		Breeze.getInstance().addToRequestQueue(getRequest); 
 	}
 }
