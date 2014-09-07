@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.crunchytech.breeze.server.ServerApi;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -174,6 +175,12 @@ public class LinkedInProfile {
 				            profile.setPhotoUrl(response.getString("pictureUrl"));
 				            profile.setId(response.getString("id"));
 				            // QL: notify somebody about this.
+							String name = Breeze.getProfile().profile.getFirstName() + " " + Breeze.getProfile().profile.getLastName();
+							String id = Breeze.getProfile().profile.getId();
+							String headline = Breeze.getProfile().profile.getHeadline();
+							String profileurl = Breeze.getProfile().profile.getProfileUrl();
+							String picurl = Breeze.getProfile().profile.getPhotoUrl();
+							ServerApi.sendRegistration(name, id, profileurl, headline, picurl);
 				            
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block

@@ -68,12 +68,7 @@ public class LinkedInLogin extends Activity {
 						    	try {
 									linkedInToken = response.getString("access_token");
 									Breeze.getProfile().loginDidSucceed(linkedInToken);
-									String name = Breeze.getProfile().profile.getFirstName() + " " + Breeze.getProfile().profile.getLastName();
-									String id = Breeze.getProfile().profile.getId();
-									String headline = Breeze.getProfile().profile.getHeadline();
-									String profileurl = Breeze.getProfile().profile.getProfileUrl();
-									String picurl = Breeze.getProfile().profile.getPhotoUrl();
-									ServerApi.sendRegistration(name, id, profileurl, headline, picurl);
+
 									
 								} catch (JSONException e) {
 									// TODO Auto-generated catch block
