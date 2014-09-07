@@ -1,27 +1,76 @@
 package com.crunchytech.breeze.server;
+
 import static com.crunchytech.breeze.Constants.TAG;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+
+import android.app.ProgressDialog;
 import android.util.Log;
+
+import com.android.volley.Request.Method;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 public class ServerApi {
 	static String serverURL = "http://107.170.245.92:5000/";
 	static String register = "register";
 	static String getnearby = "getnearby";
-	
-	
-	public ServerApi(){
+
+	public ServerApi() {
 		Log.i(TAG, "Instantiate Server Api?");
 	}
-	
-	public static void sendRegistration(String name, String id, String purl){
+
+	public static void sendRegistration(final String name, final String id, final String purl, final String headline) {
 		Log.i(TAG, "Send Registration to the server");
-		String requestUrl = serverURL+register;
+		String requestUrl = serverURL + register;
 		Log.i(TAG, "requestURL = " + requestUrl);
-		
-		
+
+		// Tag used to cancel the request
+		String tag_json_obj = "json_obj_req";
+
+		// ProgressDialog pDialog = new ProgressDialog(this);
+		// pDialog.setMessage("Loading...");
+		// pDialog.show();
+
+		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, requestUrl,
+				null, new Response.Listener<JSONObject>() {
+
+					@Override
+					public void onResponse(JSONObject response) {
+						Log.d(TAG, response.toString());
+						// pDialog.hide();
+					}
+				}, new Response.ErrorListener() {
+
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						VolleyLog.d(TAG, "Error: " + error.getMessage());
+						// pDialog.hide();
+					}
+				}) {
+
+			@Override
+			protected Map<String, String> getParams() {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("name", name);
+				params.put("ident", id);
+				params.put("purl", purl);
+				params.put("headline", headline);
+
+				return params;
+			}
+
+		};
+
 	}
-	
-	public static void getNearby(){
+
+	public static void getNearby() {
 		Log.i(TAG, "Get All Nearby Users");
-		String requestUrl = serverURL+getnearby;
+		String requestUrl = serverURL + getnearby;
 	}
 }
