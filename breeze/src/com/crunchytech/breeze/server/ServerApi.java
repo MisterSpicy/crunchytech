@@ -2,9 +2,12 @@ package com.crunchytech.breeze.server;
 
 import static com.crunchytech.breeze.Constants.TAG;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -26,7 +29,16 @@ public class ServerApi {
 		Log.i(TAG, "Instantiate Server Api?");
 	}
 
-	public static void sendRegistration(final String name, final String id, final String purl, final String headline) {
+	/**
+	 * JAVA DOC DICKSHIT
+	 * 
+	 * @param name
+	 * @param id
+	 * @param profileurl
+	 * @param headline
+	 */
+	public static void sendRegistration(final String name, final String id,
+			final String profileurl, final String headline, final String picurl) {
 		Log.i(TAG, "Send Registration to the server");
 		String requestUrl = serverURL + register;
 		Log.i(TAG, "requestURL = " + requestUrl);
@@ -44,7 +56,7 @@ public class ServerApi {
 					@Override
 					public void onResponse(String response) {
 						Log.d(TAG, response);
-						
+
 					}
 				}, new Response.ErrorListener() {
 
@@ -60,40 +72,73 @@ public class ServerApi {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("name", name);
 				params.put("ident", id);
-				params.put("purl", purl);
+				params.put("profileurl", profileurl);
 				params.put("headline", headline);
+				params.put("picurl", picurl);
 
 				return params;
 			}
 		};
-		Breeze.getInstance().addToRequestQueue(postRequest); 
+		Breeze.getInstance().addToRequestQueue(postRequest);
 	}
 
-	public static void getNearby() {
+	public static ArrayList<UserInfo> getNearby() {
 		Log.i(TAG, "Get All Nearby Users");
 		String requestUrl = serverURL + getnearby;
-		
-		
+
 		// prepare the Request
-		JsonObjectRequest getRequest = new JsonObjectRequest(Method.GET, requestUrl, null,
-		    new Response.Listener<JSONObject>() 
-		    {
-		        @Override
-		        public void onResponse(JSONObject response) {   
-		                        // display response     
-		            Log.d(TAG, response.toString());
-		        }
-		    }, 
-		    new Response.ErrorListener() 
-		    {
-		         @Override
-		         public void onErrorResponse(VolleyError error) {            
-		            Log.d(TAG, error.toString());
-		       }
-		    }
-		);
-		 
-		// add it to the RequestQueue   
-		Breeze.getInstance().addToRequestQueue(getRequest); 
+		JsonObjectRequest getRequest = new JsonObjectRequest(Method.GET,
+				requestUrl, null, new Response.Listener<JSONObject>() {
+					@Override
+					public void onResponse(JSONObject response) {
+						// display response
+						Log.d(TAG, response.toString());
+					}
+				}, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.d(TAG, error.toString());
+					}
+				});
+
+		// add it to the RequestQueue
+		Breeze.getInstance().addToRequestQueue(getRequest);
+		return null;
+	}
+
+	public static ArrayList<UserInfo> parseRequest(JSONObject obj) {
+		Log.i(TAG, "PARSE JSON RESPONSE");
+		ArrayList<UserInfo> userinfos = new ArrayList<UserInfo>();
+
+		try {
+			JSONArray arr = obj.getJSONArray("users");
+			int length = arr.length();
+			Log.i(TAG, "JSONLength = " + length);
+
+			for (int j = 0; j < length; j++) {
+				JSONObject anobj = arr.getJSONObject(j);
+				userinfos
+						.add(new UserInfo(anobj.getString("name"), anobj
+								.getString("ident"), anobj
+								.getString("profileurl"), anobj
+								.getString("headline"), anobj
+								.getString("picurl")));
+
+			}
+		} catch (JSONException e) {
+			Log.e(TAG, "I fucked up the JSON object parsing");
+			e.printStackTrace();
+		}
+
+		return userinfos;
 	}
 }
+
+/*
+ * EXAMPLE OF JSON RETURNED { "users": [ { "headline": "I AM A BANANA", "ident":
+ * "12345", "name": "bob", "picurl": "knife.jpg", "profileurl":
+ * "httpcolonslash4" }, { "headline": "I AM A BANANA", "ident": "12346", "name":
+ * "tom", "picurl": "gun.jpg", "profileurl": "httpcolonslash2" }, { "headline":
+ * "I AM A BANANA", "ident": "12347", "name": "larry", "picurl": "needle.jpg",
+ * "profileurl": "httpcolonslash3" } ] }
+ */
