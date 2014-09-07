@@ -45,7 +45,7 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
         setContentView(R.layout.messaging);
 
         doBind();
-                
+        
         
         mMessagesList = (ListView) findViewById(R.id.lstMessages);
         mTxtTextBody = (EditText) findViewById(R.id.txtTextBody);
@@ -59,10 +59,13 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
                 sendMessage();
             }
         });
-        
+
+        getActionBar().setHomeButtonEnabled(true);
         mReceipient = getIntent().getStringExtra(MessageService.INTENT_EXTRA_PEER);
         Log.d(TAG, "Start conversation with " + mReceipient);
-        
+        getActionBar().setDisplayShowTitleEnabled(true);
+        this.setTitle(mReceipient);
+
     }
 
     @Override

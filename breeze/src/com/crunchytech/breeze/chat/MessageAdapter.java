@@ -71,9 +71,9 @@ public class MessageAdapter extends BaseAdapter {
         if (convertView == null) {
             int res = 0;
             if (direction == DIRECTION_INCOMING) {
-                res = R.layout.message_right;
-            } else if (direction == DIRECTION_OUTGOING) {
                 res = R.layout.message_left;
+            } else if (direction == DIRECTION_OUTGOING) {
+                res = R.layout.message_right;
             }
             convertView = mInflater.inflate(res, viewGroup, false);
         }
@@ -88,7 +88,6 @@ public class MessageAdapter extends BaseAdapter {
         txtSender.setText(name);
         txtMessage.setText(message.getTextBody());
         txtDate.setText(mFormatter.format(message.getTimestamp()));
-
         return convertView;
     }
 }
