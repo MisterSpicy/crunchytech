@@ -157,14 +157,9 @@ public class MessagesActivity extends FragmentActivity {
 		
 		drawerItem[0] = new NavItem(R.drawable.discover, "Discover");
 		drawerItem[1] = new NavItem(R.drawable.drawer_messages, "Messages");
-<<<<<<< HEAD
-		drawerItem[2] = new NavItem(R.drawable.drawer_logout, "Invite");
-		drawerItem[3] = new NavItem(R.drawable.invite, "Log out");
+		drawerItem[2] = new NavItem(R.drawable.invite, "Invite");
+		drawerItem[3] = new NavItem(R.drawable.drawer_logout, "Log out");
 		drawerItem[4] = new NavItem(R.drawable.linkedin, "");
-=======
-		drawerItem[2] = new NavItem(R.drawable.drawer_logout, "Log out");
-		drawerItem[3] = new NavItem(R.drawable.invite, "Invite");
->>>>>>> FETCH_HEAD
 		
 		NavArrayAdapter mDrawerAdapter = new NavArrayAdapter(this, R.layout.navigation_drawer_item, drawerItem);
 
@@ -215,17 +210,14 @@ public class MessagesActivity extends FragmentActivity {
 			fragment = new MessagesFragment();
 			break;
 		case 2:
-<<<<<<< HEAD
-			//fragment = new SettingsFragment();
-			return;
-=======
+
 			{
 				Breeze.getProfile().logout();
 				Intent intent = new Intent(this, FirstTimeActivity.class);
 				startActivity(intent);
 				return;
 			}
->>>>>>> FETCH_HEAD
+
 		case 3:
 			//fragment = new InviteFragment();
 			return;
