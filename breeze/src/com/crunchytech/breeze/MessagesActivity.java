@@ -132,17 +132,15 @@ public class MessagesActivity extends FragmentActivity {
 			return true;
 		}
 		
-//		switch (item.getItemId()) {
-//			case R.id.settings:
-//				selectDrawerItem(1);
-//				return true;
-//			case R.id.messages:
-//				selectDrawerItem(2);
-//			default:
-//				return super.onOptionsItemSelected(item);
-//		}
-		
-		return super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+			case R.id.settings:
+				selectDrawerItem(2);
+				return true;
+			case R.id.messages:
+				selectDrawerItem(1);
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public void initializeDrawerList(Bundle savedInstanceState) {
