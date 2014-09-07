@@ -68,38 +68,38 @@ public class FeedArrayAdapter extends ArrayAdapter<String> {
 	}
 	
 	public class OnProfileClickListener implements OnClickListener {
-	     String id;
-	     public OnProfileClickListener(String id) {
-	          this.id = id;
+	     String url;
+	     public OnProfileClickListener(String url) {
+	          this.url = url;
 	     }
 	     
         @Override
         public void onClick(View v) {
-    		fragment.openProfile(id);
+    		fragment.openProfile(url);
         }
     };
     
 	public class OnHideClickListener implements OnClickListener {
-	     String id;
-	     public OnHideClickListener(String id) {
-	          this.id = id;
+	     String url;
+	     public OnHideClickListener(String url) {
+	          this.url = url;
 	     }
 	     
        @Override
        public void onClick(View v) {
-   		fragment.hideProfile(id);
+   		fragment.hideProfile(url);
        }
    };
     
 	public class OnConnectClickListener implements OnClickListener {
-	     String id;
-	     public OnConnectClickListener(String id) {
-	          this.id = id;
+	     String url;
+	     public OnConnectClickListener(String url) {
+	          this.url = url;
 	     }
 	     
        @Override
        public void onClick(View v) {
-   		fragment.connectProfile(id);
+   		fragment.connectProfile(url);
        }
    };
 }

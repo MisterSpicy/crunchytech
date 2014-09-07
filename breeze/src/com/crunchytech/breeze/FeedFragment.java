@@ -3,6 +3,8 @@ package com.crunchytech.breeze;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.crunchytech.breeze.server.ServerApi;
+
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -63,30 +65,14 @@ public class FeedFragment extends ListFragment {
 	}
 
 	public void updateList() {
-		ArrayList<String> messages = new ArrayList<String>();
-		messages.add("Hanna");
-		messages.add("Brian");
-		messages.add("Quoc");
-		messages.add("Greg");
-		messages.add("Matt");
+		ServerApi.updateNearbyUsers();
 		
 		/* Clear the adapter then re-populate */
 		mFeedAdapter.clear();
 		
-		for (int i = 0; i < messages.size(); i++) {
-			mFeedAdapter.add(messages.get(i));
+		for (int i = 0; i < ServerApi.nearbyUsers.size(); i++) {
+			mFeedAdapter.add(ServerApi.nearbyUsers.get(i).profileurl);
 		}
-	}
-	
-	public List<String> getAllMessages() {
-		ArrayList<String> msgs = new ArrayList<String>();
-		msgs.add("Hanna");
-		msgs.add("Brian");
-		msgs.add("Quoc");
-		msgs.add("Greg");
-		msgs.add("Matt");
-		
-		return msgs;
 	}
 	
 	public void openProfile(String url) {
