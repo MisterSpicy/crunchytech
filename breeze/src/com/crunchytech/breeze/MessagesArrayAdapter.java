@@ -46,9 +46,9 @@ public class MessagesArrayAdapter extends ArrayAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.name.setText("test");
-        holder.msg.setText("test");
-        holder.time.setText("test");
+        holder.name.setText(id);
+        holder.msg.setText("message goes here");
+        holder.time.setText("time of day");
         System.out.println("printting row = "+ position);
 
         return convertView;
