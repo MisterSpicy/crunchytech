@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
         Visible = (Button) findViewById(R.id.button3);
         list = (Button) findViewById(R.id.button4);
         find = (Button) findViewById(R.id.buttonfind);
-        et = (EditText) findViewById(R.id.et1);
+//        et = (EditText) findViewById(R.id.et1);
 
         // create the arrayAdapter that contains the BTDevices, and set it to
         // the ListView
