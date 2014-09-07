@@ -3,9 +3,12 @@ package com.crunchytech.breeze;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.crunchytech.breeze.chat.MessageService;
+
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,8 @@ public class MessagesFragment extends ListFragment {
 
 	private MessagesArrayAdapter mMessagesAdapter;
 	private ListView mMessagesListView;
+
+    private static final String TAG = MessagesFragment.class.getSimpleName();
 
 	final static String ARG_POSITION = "position";
 	int mCurrentPosition = -1;
@@ -65,9 +70,11 @@ public class MessagesFragment extends ListFragment {
 
 	public void loadConversation(String id) {
         
-		Intent intent = new Intent(getActivity(), MessagesActivity.class);
-		intent.putExtra("id", id);
-		startActivity(intent);
+		Log.d(TAG, "Starting message for " + id);
+        Intent intent = new Intent(getActivity(), MessageService.class);
+        intent.putExtra(MessageService.INTENT_EXTRA_USERNAME, "Quoc");
+        intent.putExtra(MessageService.INTENT_EXTRA_PEER, id);
+        getActivity().startService(intent);			
 	}
 
 	public void updateList() {

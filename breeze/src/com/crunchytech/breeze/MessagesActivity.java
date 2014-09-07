@@ -50,7 +50,7 @@ public class MessagesActivity extends FragmentActivity {
 
 		if (savedInstanceState != null) {
 			int selectedTabIndex = savedInstanceState.getInt("STATE_SELECTED_NAVIGATION_ITEM");
-			getActionBar().setSelectedNavigationItem(selectedTabIndex);
+			//getActionBar().setSelectedNavigationItem(selectedTabIndex);
 		}
 		
 		if (findViewById(R.id.content_frame) != null) {
@@ -100,7 +100,7 @@ public class MessagesActivity extends FragmentActivity {
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-			getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
+			//getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
 		}
 	}
 
@@ -129,11 +129,6 @@ public class MessagesActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
-		System.out.println("Starting message");
-        Intent intent = new Intent(this, MessageService.class);
-        intent.putExtra(MessageService.INTENT_EXTRA_USERNAME, "Quoc");
-        startService(intent);			
 
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;

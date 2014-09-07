@@ -31,13 +31,13 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
 
     private MessageAdapter mMessageAdapter;
 
-    private EditText mTxtRecipient;
-
     private EditText mTxtTextBody;
 
     private Button mBtnSend;
 
     private ListView mMessagesList;
+
+    private String mReceipient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +45,9 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
         setContentView(R.layout.messaging);
 
         doBind();
-
+                
+        
         mMessagesList = (ListView) findViewById(R.id.lstMessages);
-        mTxtRecipient = (EditText) findViewById(R.id.txtRecipient);
         mTxtTextBody = (EditText) findViewById(R.id.txtTextBody);
         mBtnSend = (Button) findViewById(R.id.btnSend);
 
@@ -59,6 +59,10 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
                 sendMessage();
             }
         });
+        
+        mReceipient = getIntent().getStringExtra(MessageService.INTENT_EXTRA_PEER);
+        Log.d(TAG, "Start conversation with " + mReceipient);
+        
     }
 
     @Override
@@ -69,7 +73,7 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
 
     private void doBind() {
         Intent intent = new Intent(this, MessageService.class);
-        bindService(intent, this, BIND_AUTO_CREATE);
+        bindService(intent, this, BIND_AUTO_CREATE);        
     }
 
     private void doUnbind() {
@@ -93,9 +97,11 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
     }
 
     private void sendMessage() {
-        String recipient = mTxtRecipient.getText().toString();
+    	if(mReceipient == null) {
+    		Log.e(TAG, "mReceipient is null");
+    	}
         String textBody = mTxtTextBody.getText().toString();
-        if (recipient.isEmpty()) {
+        if (mReceipient.isEmpty()) {
             Toast.makeText(this, "No recipient added", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -104,7 +110,7 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
             return;
         }
 
-        mMessageService.sendMessage(recipient, textBody);
+        mMessageService.sendMessage(mReceipient, textBody);
         mTxtTextBody.setText("");
     }
 

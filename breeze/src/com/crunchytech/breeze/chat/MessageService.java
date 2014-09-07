@@ -21,6 +21,8 @@ public class MessageService extends Service implements SinchClientListener {
     private static final String ENVIRONMENT = "sandbox.sinch.com";
 
     public static final String INTENT_EXTRA_USERNAME = "intentExtraUsername";
+    
+    public static final String INTENT_EXTRA_PEER = "intentExtraPeer";
 
     private static final String TAG = MessageService.class.getSimpleName();
 
@@ -29,7 +31,9 @@ public class MessageService extends Service implements SinchClientListener {
     private SinchClient mSinchClient = null;
 
     private MessageClient mMessageClient = null;
-
+    
+    private String mReceipient;
+    
     public class MessageServiceInterface extends Binder {
 
         public void sendMessage(String recipientUserId, String textBody) {
@@ -67,6 +71,7 @@ public class MessageService extends Service implements SinchClientListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String username = intent.getStringExtra(INTENT_EXTRA_USERNAME);
+        mReceipient = intent.getStringExtra(MessageService.INTENT_EXTRA_PEER);
 
         if (username != null && !isSinchClientStarted()) {
             startSinchClient(username);
@@ -131,9 +136,11 @@ public class MessageService extends Service implements SinchClientListener {
 
     @Override
     public void onClientStarted(SinchClient client) {
-        Log.d(TAG, "SinchClient started");
+        Log.d(TAG, "SinchClient started for " + mReceipient);
         Intent intent = new Intent(this, MessagingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(MessageService.INTENT_EXTRA_PEER, mReceipient);
+
         startActivity(intent);
     }
 
