@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -64,7 +64,6 @@ public class ServerApi {
 
 				return params;
 			}
-
 		};
 
 	}
@@ -72,5 +71,28 @@ public class ServerApi {
 	public static void getNearby() {
 		Log.i(TAG, "Get All Nearby Users");
 		String requestUrl = serverURL + getnearby;
+		
+		
+		// prepare the Request
+		JsonObjectRequest getRequest = new JsonObjectRequest(Method.GET, requestUrl, null,
+		    new Response.Listener<JSONObject>() 
+		    {
+		        @Override
+		        public void onResponse(JSONObject response) {   
+		                        // display response     
+		            Log.d(TAG, response.toString());
+		        }
+		    }, 
+		    new Response.ErrorListener() 
+		    {
+		         @Override
+		         public void onErrorResponse(VolleyError error) {            
+		            Log.d(TAG, error.toString());
+		       }
+		    }
+		);
+		 
+		// add it to the RequestQueue   
+//		queue.add(getRequest);
 	}
 }
