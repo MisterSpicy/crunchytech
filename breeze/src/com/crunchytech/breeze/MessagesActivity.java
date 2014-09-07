@@ -1,15 +1,9 @@
 package com.crunchytech.breeze;
 
-import com.crunchytech.breeze.chat.MessageService;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,7 +56,7 @@ public class MessagesActivity extends FragmentActivity {
 				return;
 			}
 
-			MessagesFragment firstFragment = new MessagesFragment();
+			FeedFragment firstFragment = new FeedFragment();
 			firstFragment.setArguments(getIntent().getExtras());
 			FragmentManager fragmentManager = getFragmentManager();
 			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -158,12 +152,13 @@ public class MessagesActivity extends FragmentActivity {
 
 		mDrawerListView = (ListView) findViewById(R.id.lstDrawer);
 		
-		NavItem[] drawerItem = new NavItem[4];
+		NavItem[] drawerItem = new NavItem[5];
 		
-		drawerItem[0] = new NavItem(R.drawable.sym_action_chat, "Messaging");
-		drawerItem[1] = new NavItem(R.drawable.ic_sysbar_quicksettings, "Settings");
-		drawerItem[2] = new NavItem(R.drawable.ic_menu_invite, "Invite");
-		drawerItem[3] = new NavItem(R.drawable.linkedin, "");
+		drawerItem[0] = new NavItem(R.drawable.sym_action_chat, "Feed");
+		drawerItem[1] = new NavItem(R.drawable.sym_action_chat, "Messaging");
+		drawerItem[2] = new NavItem(R.drawable.ic_sysbar_quicksettings, "Settings");
+		drawerItem[3] = new NavItem(R.drawable.ic_menu_invite, "Invite");
+		drawerItem[4] = new NavItem(R.drawable.linkedin, "");
 		
 		NavArrayAdapter mDrawerAdapter = new NavArrayAdapter(this, R.layout.navigation_drawer_item, drawerItem);
 
@@ -208,15 +203,18 @@ public class MessagesActivity extends FragmentActivity {
 		
 		switch (position) {
 		case 0:
-			fragment = new MessagesFragment();
+			fragment = new FeedFragment();
 			break;
 		case 1:
-			//fragment = new SettingsFragment();
+			fragment = new MessagesFragment();
 			break;
 		case 2:
-			//fragment = new OtherFragment();
+			//fragment = new SettingsFragment();
 			break;
 		case 3:
+			//fragment = new InviteFragment();
+			return;
+		case 4:
 			Intent viewIntent = new Intent	("android.intent.action.VIEW", 
 					Uri.parse(myProfile.getLinkedInAuthURL()) 
 											);
