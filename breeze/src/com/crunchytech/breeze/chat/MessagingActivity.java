@@ -7,13 +7,17 @@ import com.sinch.android.rtc.messaging.MessageDeliveryInfo;
 import com.sinch.android.rtc.messaging.MessageFailureInfo;
 import com.sinch.android.rtc.PushPair;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,11 +64,12 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
             }
         });
 
-        getActionBar().setHomeButtonEnabled(true);
         mReceipient = getIntent().getStringExtra(MessageService.INTENT_EXTRA_PEER);
         Log.d(TAG, "Start conversation with " + mReceipient);
-        getActionBar().setDisplayShowTitleEnabled(true);
+        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
+            | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP);
         this.setTitle(mReceipient);
+        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent))); 
 
     }
 
@@ -119,6 +124,17 @@ public class MessagingActivity extends Activity implements ServiceConnection, Me
 
     private void setButtonEnabled(boolean enabled) {
         mBtnSend.setEnabled(enabled);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        // Respond to the action bar's Up/Home button
+        case android.R.id.home:
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
