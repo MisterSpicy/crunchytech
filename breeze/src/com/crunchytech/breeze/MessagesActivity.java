@@ -166,17 +166,16 @@ public class MessagesActivity extends FragmentActivity {
             paymentIntent);
     }
     
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		
+    public void buyCoffee() {
         PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
 
         Intent intent = new Intent(MessagesActivity.this, PaymentActivity.class);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
-        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
- 
-		return true;
-/*		
+        startActivityForResult(intent, REQUEST_CODE_PAYMENT);    	
+    }
+    
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
@@ -190,7 +189,7 @@ public class MessagesActivity extends FragmentActivity {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
-*/		
+		
 	}
 
 	public void initializeDrawerList(Bundle savedInstanceState) {
