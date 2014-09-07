@@ -11,7 +11,9 @@
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="10dp"
+            android:clickable="true"
+            android:onClick="onFeedProfileClick" />
         <TextView
             android:id="@+id/feed_name"
             android:layout_width="wrap_content"
@@ -20,6 +22,8 @@
             android:paddingRight="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:clickable="true"
+            android:onClick="onFeedProfileClick"
             android:layout_gravity="bottom"
             android:textColor="@android:color/black" />
         <TextView
@@ -30,12 +34,16 @@
             android:paddingRight="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:clickable="true"
+            android:onClick="onFeedProfileClick"
             android:layout_gravity="bottom"
             android:textColor="@android:color/black" />
         <ImageView
             android:id="@+id/feed_hide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="onFeedHideClick"
             android:scaleType="centerCrop"
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
@@ -43,6 +51,8 @@
             android:id="@+id/feed_connect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="onFeedConnectClick"
             android:scaleType="centerCrop"
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
