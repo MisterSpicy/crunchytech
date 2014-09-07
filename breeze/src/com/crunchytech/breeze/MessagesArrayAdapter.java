@@ -47,8 +47,8 @@ public class MessagesArrayAdapter extends ArrayAdapter<String> {
         }
 
         holder.name.setText(id);
-        holder.msg.setText("message goes here");
-        holder.time.setText("time of day");
+        holder.msg.setText("You are connected.");
+        holder.time.setText("7:00AM");
         System.out.println("printting row = "+ position);
 
         return convertView;

@@ -69,10 +69,10 @@ public class MessagesFragment extends ListFragment {
 	}
 
 	public void loadConversation(String id) {
-        
-		Log.d(TAG, "Starting message for " + id);
+        String sender = Breeze.getProfile().profile.getFirstName().trim();
+        Log.d(TAG, "Starting message for " + id + " with " + sender);
         Intent intent = new Intent(getActivity(), MessageService.class);
-        intent.putExtra(MessageService.INTENT_EXTRA_USERNAME, "Quoc");
+        intent.putExtra(MessageService.INTENT_EXTRA_USERNAME, sender);
         intent.putExtra(MessageService.INTENT_EXTRA_PEER, id);
         getActivity().startService(intent);			
 	}
