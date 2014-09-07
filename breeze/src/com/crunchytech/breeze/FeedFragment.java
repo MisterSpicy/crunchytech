@@ -65,13 +65,15 @@ public class FeedFragment extends ListFragment {
 	}
 
 	public void updateList() {
-		ServerApi.updateNearbyUsers();
+//		ServerApi.updateNearbyUsers();
 		
 		/* Clear the adapter then re-populate */
 		mFeedAdapter.clear();
 		
 		for (int i = 0; i < ServerApi.nearbyUsers.size(); i++) {
-			mFeedAdapter.add(ServerApi.nearbyUsers.get(i).profileurl);
+			if(!ServerApi.removedUsers.contains(ServerApi.nearbyUsers.get(i).profileurl)){
+				mFeedAdapter.add(ServerApi.nearbyUsers.get(i).profileurl);
+			}
 		}
 	}
 	
@@ -83,7 +85,8 @@ public class FeedFragment extends ListFragment {
 	
 	public void hideProfile(String url) {
 		mFeedAdapter.remove(url);
-		
+		ServerApi.removeUser(url);
+
 		updateList();
 	}
 	

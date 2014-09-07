@@ -4,6 +4,7 @@ import static com.crunchytech.breeze.Constants.TAG;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -28,6 +29,8 @@ public class ServerApi {
 	
 	public static ArrayList<UserInfo> nearbyUsers = new ArrayList<UserInfo>();
 	
+	public static HashSet<String> removedUsers = new HashSet<String>();
+	
 	public static UserInfo getUserInfoFromURL(String profileUrl) {
 		for(int i = 0; i < nearbyUsers.size(); i++) {
 			if(nearbyUsers.get(i).profileurl.equals(profileUrl)) {
@@ -35,6 +38,10 @@ public class ServerApi {
 			}
 		}
 		return null;
+	}
+	
+	public static void removeUser(String id){
+		removedUsers.add(id);
 	}
 	
 	public static UserInfo getUserInfoFromID(String id) {
