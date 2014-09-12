@@ -33,6 +33,7 @@ public class FeedFragment extends ListFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		ServerApi.updateNearbyUsers();
 		
 		updateList();
 	}
@@ -65,11 +66,11 @@ public class FeedFragment extends ListFragment {
 	}
 
 	public void updateList() {
-//		ServerApi.updateNearbyUsers();
+		ServerApi.updateNearbyUsers();
 		
 		/* Clear the adapter then re-populate */
 		mFeedAdapter.clear();
-		
+
 		for (int i = 0; i < ServerApi.nearbyUsers.size(); i++) {
 			if(!ServerApi.removedUsers.contains(ServerApi.nearbyUsers.get(i).profileurl)){
 				mFeedAdapter.add(ServerApi.nearbyUsers.get(i).profileurl);

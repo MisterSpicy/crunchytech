@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Observable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.crunchytech.breeze.Breeze;
 
-public class ServerApi {
+public class ServerApi extends Observable{
 	static String serverURL = "http://107.170.245.92:5000/";
 	static String register = "register";
 	static String getnearby = "getnearby";
