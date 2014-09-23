@@ -6,4 +6,4 @@ threadsafe: true
 
 handlers:
 - url: /.*
-  script: breeze_server.app
+  script: breeze_server.application

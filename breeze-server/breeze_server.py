@@ -19,7 +19,8 @@ USER_DB = 'user_db'
 
 def user_db_key(user_db=USER_DB):
 	"""Create a key for the datastore to use"""
-	return ndb.key('users', user_db)
+	print "creating user_db_key"
+	return ndb.Key('users', user_db)
 
 def readFromDB():
 	print "Read from the DB?"
@@ -28,13 +29,26 @@ class UserEntry(ndb.Model):
 	"""Model Object for individual entry"""
 
 	name = ndb.StringProperty()
-	identifier = ndb.StringProperty()
+	identifier = ndb.StringProperty(indexed=False)
 	#profileurl = ndb.StringProperty()
 	#headline = ndb.StringProperty()
 	#picurl = ndb.StringProperty()
 
+class BaseHandler(webapp2.RequestHandler):
 
-class BreezeMain(webapp2.RequestHandler):
+	def handle_exception(self, exception, debug):
+
+
+		self.response.write('An error occurred.')
+		# If the exception is a HTTPException, use its error code.
+		# Otherwise use a generic 500 error code.
+		if isinstance(exception, webapp2.HTTPException):
+			self.response.set_status(exception.code)
+		else:
+			self.response.set_status(500)
+
+
+class BreezeMain(BaseHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/plain'
 		self.response.write(MAIN_PAGE_HTML)
@@ -58,21 +72,52 @@ class BreezeMain(webapp2.RequestHandler):
 
 
 
-
-class Register(webapp2.RequestHandler):
+# Register class - lets have the post methods insert into DB
+# 	and the GET method read all the entries out of it.
+class Register(BaseHandler):
 	def get(self):
+		#Read out of the datastore
+		self.response.write('Register GET')
 
+		#entry_name = self.request.get('entry_name', USER_DB)
+		entry = UserEntry(parent=user_db_key('user_db'))
+		entry.name = 'George Martin'
+		entry.identifier = 'someid12345'
+		entry.put()
+
+		query = UserEntry.query(ancestor=user_db_key(USER_DB))
+
+		results = query.fetch(10)
+
+		for result in results:
+			if result.name:
+				print "Result Name: " + result.name
+			if result.identifier:
+				print "Result ID: " + result.identifier
+
+		print "End Register GET"
 
 	def post(self):
+		#Insert some stuff into the datastore
+		self.response.write('Register POST')
+
+		entry_name = self.request.get('entry_name', USER_DB)
+
+		query = UserEntry(parent=user_db_key(entry_name))
+
+		query.name = self.request.get('name')
+		query.put()
+		self.response.write('Saved to DB?')
 
 
 class GetNearby(webapp2.RequestHandler):
 	def get(self):
-		self.response.write(MAIN_PAGE_HTML)
+		self.response.write('GetNearby GET')
 
 	def post(self):
-
+		self.response.write('GetNearby POST')
 
 application = webapp2.WSGIApplication([
 	('/', BreezeMain),
-	('/register', Register)], debug=True)
+	('/register', Register),
+	('/nearby', GetNearby)], debug=True)
