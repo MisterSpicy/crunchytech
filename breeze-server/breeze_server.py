@@ -30,9 +30,9 @@ class UserEntry(ndb.Model):
 
 	name = ndb.StringProperty()
 	identifier = ndb.StringProperty(indexed=False)
-	#profileurl = ndb.StringProperty()
-	#headline = ndb.StringProperty()
-	#picurl = ndb.StringProperty()
+	profileurl = ndb.StringProperty(indexed=False)
+	headline = ndb.StringProperty(indexed=False)
+	picurl = ndb.StringProperty(indexed=False)
 
 class BaseHandler(webapp2.RequestHandler):
 
@@ -68,21 +68,18 @@ class BreezeMain(BaseHandler):
 
 		#Store the user db values to the database
 		user_page.put()
-		# self.redirect?  Naw
-
-
 
 # Register class - lets have the post methods insert into DB
 # 	and the GET method read all the entries out of it.
 class Register(BaseHandler):
 	def get(self):
 		#Read out of the datastore
-		self.response.write('Register GET')
 
 		#entry_name = self.request.get('entry_name', USER_DB)
 		entry = UserEntry(parent=user_db_key('user_db'))
 		entry.name = 'George Martin'
 		entry.identifier = 'someid12345'
+		entry.profileurl = 'http://someurl.com/picture.jpg'
 		entry.put()
 
 		query = UserEntry.query(ancestor=user_db_key(USER_DB))
@@ -91,11 +88,13 @@ class Register(BaseHandler):
 
 		for result in results:
 			if result.name:
-				print "Result Name: " + result.name
+				self.response.write('Result Name: ' + result.name + ' |\t')
 			if result.identifier:
-				print "Result ID: " + result.identifier
+				self.response.write('Result Identifier: ' + result.identifier + ' |\t')
+			if result.profileurl:
+				self.response.write('Result URL: ' + result.profileurl + ' |\t')
 
-		print "End Register GET"
+			self.response.write('<p>')
 
 	def post(self):
 		#Insert some stuff into the datastore
