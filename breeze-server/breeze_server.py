@@ -15,9 +15,7 @@ MAIN_PAGE_HTML = """\
 
 """
 
-USER_DB = 'user_db'
-
-def user_db_key(user_db=USER_DB):
+def user_db_key(user_db='person'):
 	"""Create a key for the datastore to use"""
 	print "creating user_db_key"
 	return ndb.Key('users', user_db)
@@ -28,11 +26,15 @@ def readFromDB():
 class UserEntry(ndb.Model):
 	"""Model Object for individual entry"""
 
-	name = ndb.StringProperty()
-	identifier = ndb.StringProperty(indexed=False)
+	name = ndb.StringProperty(indexed=False)
+	ident = ndb.StringProperty(indexed=True)
 	profileurl = ndb.StringProperty(indexed=False)
 	headline = ndb.StringProperty(indexed=False)
 	picurl = ndb.StringProperty(indexed=False)
+
+	@classmethod
+	def query_book(cls, ancestor_key):
+		return cls.query(ancestor=ancestor_key)
 
 class BaseHandler(webapp2.RequestHandler):
 
@@ -76,15 +78,14 @@ class Register(BaseHandler):
 		#Read out of the datastore
 
 		#entry_name = self.request.get('entry_name', USER_DB)
-		entry = UserEntry(parent=user_db_key('user_db'))
+		entry = UserEntry(parent=user_db_key())
 		entry.name = 'George Martin'
 		entry.identifier = 'someid12345'
 		entry.profileurl = 'http://someurl.com/picture.jpg'
 		entry.put()
 
-		query = UserEntry.query(ancestor=user_db_key(USER_DB))
-
-		results = query.fetch(10)
+		anc_key = UserEntry.query(ancestor=user_db_key())
+		results = anc_key.fetch(10)
 
 		for result in results:
 			if result.name:
@@ -96,25 +97,35 @@ class Register(BaseHandler):
 
 			self.response.write('<p>')
 
+
 	def post(self):
 		#Insert some stuff into the datastore
-		self.response.write('Register POST')
 
-		entry_name = self.request.get('entry_name', USER_DB)
+		name = self.request.get('name')
+		ident = self.request.get('ident')
+		profileurl = self.request.get('profileurl')
+		headline = self.request.get('headline')
+		picurl = self.request.get('picurl')
 
-		query = UserEntry(parent=user_db_key(entry_name))
+		print "(name, ident, profileurl, headline, picurl) : " + name + '\t' + ident + '\t' + profileurl + '\t' + headline + '\t' + picurl 
 
-		query.name = self.request.get('name')
-		query.put()
-		self.response.write('Saved to DB?')
+		new_user = UserEntry(parent=user_db_key())
+
+		new_user.name = self.request.get('name')
+		new_user.ident = ident
+		new_user.profileurl = profileurl
+		new_user.headline = headline
+		new_user.picurl = picurl
+
+		new_user.put()
 
 
 class GetNearby(webapp2.RequestHandler):
 	def get(self):
-		self.response.write('GetNearby GET')
+		self.response.write('GetNearby GET\n')
 
 	def post(self):
-		self.response.write('GetNearby POST')
+		self.response.write('GetNearby POST\n')
 
 application = webapp2.WSGIApplication([
 	('/', BreezeMain),
