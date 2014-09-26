@@ -5,6 +5,8 @@ from google.appengine.ext import ndb
 import webapp2
 import cgi
 import urllib
+import json
+from pprint import pprint
 
 MAIN_PAGE_HTML = """\
 <html>
@@ -22,6 +24,37 @@ def user_db_key(user_db='person'):
 
 def readFromDB():
 	print "Read from the DB?"
+
+def nearbyResponse(name, ident, profileurl, headline, picurl):
+	print "Creating JSON Response"
+	
+	obj = {
+		'name' : name,
+		'ident' : ident,
+		'profileurl' : profileurl,
+		'headline' : headline,
+		'picurl' : picurl
+	}
+
+	pprint(obj)
+
+	return obj
+
+
+def queryNearby():
+	print "queryNearby"
+	query = UserEntry.query(ancestor=user_db_key())
+
+	#Result is going to be a list of UserEntry objects
+	results = query.fetch(10)
+
+	print "getting Response"
+	response = dict((r.ident, nearbyResponse(r.name, r.ident, r.profileurl, r.headline, r.picurl)) for r in results)
+	pprint(response)
+	#json_string = json.dumps(response)
+
+	#print "Printing JSON String\n"
+	#pprint(json_string)
 
 class UserEntry(ndb.Model):
 	"""Model Object for individual entry"""
@@ -123,6 +156,7 @@ class Register(BaseHandler):
 class GetNearby(webapp2.RequestHandler):
 	def get(self):
 		self.response.write('GetNearby GET\n')
+		queryNearby()
 
 	def post(self):
 		self.response.write('GetNearby POST\n')
